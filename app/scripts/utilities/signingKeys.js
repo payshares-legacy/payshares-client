@@ -1,7 +1,7 @@
 /* exported SigningKeys */
 
 /**
- * Generates a random stellar wallet or recovers a stellar wallet from its seed.
+ * Generates a random payshares wallet or recovers a payshares wallet from its seed.
  *
  * @param {string} [seed] The optional base58 encoded seed.
  * @returns {{seed: {string}, address: {string}}}
@@ -9,10 +9,10 @@
 var SigningKeys = function(seed){
   /*jshint camelcase: false */
   if(seed){
-    seed = new stellar.Seed().parse_json(seed);
+    seed = new payshares.Seed().parse_json(seed);
   } else {
     Util.ensureEntropy();
-    seed = new stellar.Seed().random();
+    seed = new payshares.Seed().random();
   }
 
   var key = seed.get_key();

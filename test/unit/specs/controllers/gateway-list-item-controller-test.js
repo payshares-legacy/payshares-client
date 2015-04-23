@@ -3,11 +3,11 @@
 describe('Controller: GatewayListItemCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('stellarClient'));
+  beforeEach(module('paysharesClient'));
   
   //load the mocks for services
   beforeEach(module('mockSession'));
-  beforeEach(module('mockStellarNetwork'));
+  beforeEach(module('mockPaysharesNetwork'));
   
   var GatewayListItemCtrl, scope, rootScope, inner_session;
 

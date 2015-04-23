@@ -90,13 +90,13 @@
                                     <div class="col-md-5 col-xs-12">
                                         <input id="email-input" data-toggle="tooltip" placeholder="Email" type="text" class="form-control" ng-model="newEmail"></input>
                                         <label id="checkbox">
-                                            <input type="checkbox" name="subscribe" ng-model="subscribe"> Subscribe to news from Stellar
+                                            <input type="checkbox" name="subscribe" ng-model="subscribe"> Subscribe to news from Payshares
                                         </label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4 col-xs-12 col-md-push-1">
-                                        <button class="btn btn-default stellar-button settings-confirm-button" ng-click="emailAction()">{{updateEmail.isLoading() ? "Loading..." : "Confirm"}}</button>
+                                        <button class="btn btn-default payshares-button settings-confirm-button" ng-click="emailAction()">{{updateEmail.isLoading() ? "Loading..." : "Confirm"}}</button>
                                     </div>
                                     <div class="settings-cancel-button col-md-1 col-xs-1 col-md-pull-4">
                                         <a href="" ng-click="resetEmailState()">Cancel</a>
@@ -112,7 +112,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4 col-xs-12 col-md-push-1">
-                                        <button class="btn btn-default stellar-button settings-confirm-button" ng-click="emailAction()">{{updateEmail.isLoading() ? "Loading..." : "Confirm"}}</button>
+                                        <button class="btn btn-default payshares-button settings-confirm-button" ng-click="emailAction()">{{updateEmail.isLoading() ? "Loading..." : "Confirm"}}</button>
                                     </div>
                                     <div class="settings-cancel-button col-md-1 col-xs-1 col-md-pull-4">
                                         <a href="" ng-click="resetEmailState()">Cancel</a>
@@ -207,7 +207,7 @@
                                 <span class="warning-title">WARNING</span> Don't share your secret key with anyone!
                                 Anyone who knows your secret can steal your funds!
                             </div>
-                            <input type="text" class="form-control stellar-input" value="{{secretKey}}" readonly/>
+                            <input type="text" class="form-control payshares-input" value="{{secretKey}}" readonly/>
                         </div>
                         <div class="secondary-action">
                             <span id="reveal-key" ng-click="reveal = !reveal">{{reveal ? 'Hide' : 'Reveal'}}</span>
@@ -312,7 +312,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4 col-xs-12 col-md-push-1">
-                                            <button class="btn btn-default stellar-button settings-confirm-button" ng-click="update()">{{ update.isLoading() ? "Loading..." : "Set" }}</button>
+                                            <button class="btn btn-default payshares-button settings-confirm-button" ng-click="update()">{{ update.isLoading() ? "Loading..." : "Set" }}</button>
                                         </div>
                                         <div class="settings-cancel-button col-md-1 col-xs-1 col-md-pull-4">
                                             <a href="" ng-click="reset()">Cancel</a>
@@ -344,7 +344,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4 col-xs-12 col-md-push-1">
-                                        <button class="btn btn-default stellar-button settings-confirm-button" ng-click="confirmDelete()">Delete Account</button>
+                                        <button class="btn btn-default payshares-button settings-confirm-button" ng-click="confirmDelete()">Delete Account</button>
                                     </div>
                                     <div class="settings-cancel-button col-md-1 col-xs-1 col-md-pull-4">
                                         <a href="" ng-click="reset()">Cancel</a>
@@ -359,7 +359,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4 col-xs-12 col-md-push-1">
-                                        <button class="btn btn-default stellar-button settings-confirm-button" ng-click="deleteAccount()">{{ deleteAccount.isLoading() ? "Loading..." : "Confirm" }}</button>
+                                        <button class="btn btn-default payshares-button settings-confirm-button" ng-click="deleteAccount()">{{ deleteAccount.isLoading() ? "Loading..." : "Confirm" }}</button>
                                     </div>
                                     <div class="settings-cancel-button col-md-1 col-xs-1 col-md-pull-4">
                                         <a href="" ng-click="reset()">Cancel</a>
@@ -374,7 +374,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4 col-xs-12 col-md-push-1">
-                                        <button class="btn btn-default stellar-button settings-confirm-button" ng-click="deleteAccount()">{{ deleteAccount.isLoading() ? "Loading..." : "Retry" }}</button>
+                                        <button class="btn btn-default payshares-button settings-confirm-button" ng-click="deleteAccount()">{{ deleteAccount.isLoading() ? "Loading..." : "Retry" }}</button>
                                     </div>
                                     <div class="settings-cancel-button col-md-1 col-xs-1 col-md-pull-4">
                                         <a href="" ng-click="reset()">Cancel</a>

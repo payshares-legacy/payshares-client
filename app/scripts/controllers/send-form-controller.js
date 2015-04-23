@@ -1,7 +1,7 @@
 'use strict';
 /* jshint camelcase:false */
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.controller('SendFormController', function($rootScope, $scope, Payment, debounce) {
 
@@ -14,7 +14,7 @@ sc.controller('SendFormController', function($rootScope, $scope, Payment, deboun
 
     $scope.sendFormModel.recipient = params.dest + '?dt=' + params.dt;
     $scope.sendFormModel.amount = Number(params.amount);
-    $scope.sendFormModel.currency = params.currency || 'STR';
+    $scope.sendFormModel.currency = params.currency || 'XPR';
   });
 
   // Reset the send form.

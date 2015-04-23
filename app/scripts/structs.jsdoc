@@ -12,7 +12,7 @@
 /**
  * @typedef {object} Currency
  * @property {string} currency - the currency code.
- * @property {string} [issuer] - the issuer of the currency, if not STR 
+ * @property {string} [issuer] - the issuer of the currency, if not XPR 
  */
 
 /**
@@ -25,8 +25,8 @@
  * @typedef {object} Amount
  * @property {string} currency - the currency code of the amount.
  * @property {string} value    - the string of digits representing the value.  
- *                               Note, STR is expressed in stellars, not the native stroops
- * @property {string} [issuer] - the issuer of the currency, if not STR
+ *                               Note, XPR is expressed in paysharess, not the native stroops
+ * @property {string} [issuer] - the issuer of the currency, if not XPR
  */
 
 

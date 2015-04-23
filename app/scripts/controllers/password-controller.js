@@ -1,6 +1,6 @@
 'use strict';
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.controller('PasswordCtrl', function($scope, passwordStrengthComputations, badPasswords) {  
   $scope.loading = false;

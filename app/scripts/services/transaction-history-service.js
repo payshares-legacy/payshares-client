@@ -1,6 +1,6 @@
 'use strict';
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 /**
  * The TransactionHistory provides paginated access to a filtered set of transactions.
@@ -10,23 +10,23 @@ var sc = angular.module('stellarClient');
  * The TransactionHistory object broadcasts a series of events from the rootScope that
  * you can hook into to drive logic in your controllers:
  *
- * - `transaction-history:new`: The stellar network has added a transaction affecting
+ * - `transaction-history:new`: The payshares network has added a transaction affecting
  * the current account to a ledger.
  *
  * @namespace TransactionHistory
  */
-sc.service('TransactionHistory', function($rootScope, $q, StellarNetwork, session) {
+sc.service('TransactionHistory', function($rootScope, $q, PaysharesNetwork, session) {
   // The array of raw transactions sorted most recent first.
   var history;
 
   // A flag that gets set when the last transaction is encountered.
   var allTransactionsLoaded;
 
-  // The stellar-lib Account object for the current user.
+  // The payshares-lib Account object for the current user.
   var account;
 
   // The promise that is used to determine when this service is initialized.
-  var ensureInitialized = StellarNetwork.ensureConnection().then(init);
+  var ensureInitialized = PaysharesNetwork.ensureConnection().then(init);
 
   /**
    * Initialize local variables and subscribe to transaction events.
@@ -37,7 +37,7 @@ sc.service('TransactionHistory', function($rootScope, $q, StellarNetwork, sessio
     history = [];
     allTransactionsLoaded = false;
 
-    account = StellarNetwork.remote.account(session.get('address'));
+    account = PaysharesNetwork.remote.account(session.get('address'));
     account.on('transaction', function(data) {
       var transaction = {
         tx: data.transaction,
@@ -122,7 +122,7 @@ sc.service('TransactionHistory', function($rootScope, $q, StellarNetwork, sessio
    * @return {Promise}
    */
   function requestAccountTransactions(startIndex, count) {
-    return StellarNetwork.request('account_tx', {
+    return PaysharesNetwork.request('account_tx', {
       'account': session.get('address'),
       'ledger_index_min': -1,
       'ledger_index_max': -1,

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('stellarClient').controller('LoginV1Ctrl', function($rootScope, $scope, $http, $state, $stateParams, $q, session, invites, Wallet, singletonPromise, usernameProof) {
+angular.module('paysharesClient').controller('LoginV1Ctrl', function($rootScope, $scope, $http, $state, $stateParams, $q, session, invites, Wallet, singletonPromise, usernameProof) {
   setTimeout(function() {
     angular.element('#password')[0].focus();
   }, 200);
@@ -91,7 +91,7 @@ angular.module('stellarClient').controller('LoginV1Ctrl', function($rootScope, $
     var deferred = $q.defer();
 
     // Migrate signingKeys
-    var seed = new stellar.Seed().parse_json(wallet.keychainData.signingKeys.secret);
+    var seed = new payshares.Seed().parse_json(wallet.keychainData.signingKeys.secret);
     var keyPair = seed.get_key();
     var address = keyPair.get_address();
 
@@ -111,9 +111,9 @@ angular.module('stellarClient').controller('LoginV1Ctrl', function($rootScope, $
     proof.migrated = true; // This is a migrated wallet
 
     // Perform a migration
-    StellarWallet.createWallet({
+    PaysharesWallet.createWallet({
       server: Options.WALLET_SERVER+'/v2',
-      username: $stateParams.username.toLowerCase()+'@stellar.org',
+      username: $stateParams.username.toLowerCase()+'@payshares.org',
       password: $scope.password,
       publicKey: signingKeys.publicKey,
       keychainData: JSON.stringify(wallet.keychainData),
@@ -133,7 +133,7 @@ angular.module('stellarClient').controller('LoginV1Ctrl', function($rootScope, $
       if (e.name === 'ConnectionError') {
         $scope.loginError = 'Connection error. Please try again later.';
       } else {
-        Raven.captureMessage('StellarWallet.createWallet unknown error', {
+        Raven.captureMessage('PaysharesWallet.createWallet unknown error', {
           extra: {
             id: oldWalletId,
             error: e

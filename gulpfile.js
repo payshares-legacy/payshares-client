@@ -118,7 +118,7 @@ gulp.task('scripts:templateCache', function() {
         .pipe($.angularTemplatecache({
             filename: 'scripts/templates.js',
             root: 'templates',
-            module: 'stellarClient'
+            module: 'paysharesClient'
         }))
         .pipe(gulp.dest('.tmp'));
 
@@ -126,7 +126,7 @@ gulp.task('scripts:templateCache', function() {
         .pipe($.angularTemplatecache({
             filename: 'scripts/states.js',
             root: 'states',
-            module: 'stellarClient'
+            module: 'paysharesClient'
         }))
         .pipe(gulp.dest('.tmp'));
 
@@ -303,7 +303,7 @@ gulp.task('watch-docs', ['ensure_config', 'connect', 'serve'], function () {
 });
 
 gulp.task('iconfont', function() {
-    var fontName = 'stellar-client';
+    var fontName = 'payshares-client';
     return gulp.src(['app/icons/*.svg'])
         .pipe($.iconfontCss({
             fontName: fontName,

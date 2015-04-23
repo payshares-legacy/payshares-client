@@ -1,6 +1,6 @@
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
-sc.controller('VerifyEmailCtrl', function ($scope, $rootScope, $http, $state, $analytics, $q, session, stellarApi) {
+sc.controller('VerifyEmailCtrl', function ($scope, $rootScope, $http, $state, $analytics, $q, session, paysharesApi) {
   var wallet = session.get('wallet');
 
   $scope.email = wallet.mainData.email;
@@ -50,7 +50,7 @@ sc.controller('VerifyEmailCtrl', function ($scope, $rootScope, $http, $state, $a
       updateToken:      wallet.keychainData.updateToken
     };
 
-    stellarApi.User.getServerRecoveryCode(data)
+    paysharesApi.User.getServerRecoveryCode(data)
       .success(function (response) {
         deferred.resolve(response);
       })

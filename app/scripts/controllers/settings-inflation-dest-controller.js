@@ -2,7 +2,7 @@
 
 /* jshint camelcase:false */
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.controller('SettingsInflationDestCtrl', function($scope, $q, $analytics, session, singletonPromise, contacts) {
   $scope.reset = function () {
@@ -47,7 +47,7 @@ sc.controller('SettingsInflationDestCtrl', function($scope, $q, $analytics, sess
   });
 
   function getAddress(input) {
-    if(stellar.UInt160.is_valid(input)) {
+    if(payshares.UInt160.is_valid(input)) {
       // The input is an address.
       return $q.when(input);
     } else {

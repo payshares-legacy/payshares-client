@@ -1,8 +1,8 @@
 'use strict';
 
-/* global StellarWallet */
+/* global PaysharesWallet */
 
-angular.module('stellarClient').controller('ChangePasswordV2Ctrl', function($scope, $state, $stateParams, FlashMessages) {
+angular.module('paysharesClient').controller('ChangePasswordV2Ctrl', function($scope, $state, $stateParams, FlashMessages) {
   $scope.totpRequired = $stateParams.totpRequired;
 
   $scope.data = {
@@ -62,7 +62,7 @@ angular.module('stellarClient').controller('ChangePasswordV2Ctrl', function($sco
       params.totpCode = $scope.data.totpCode;
     }
 
-    StellarWallet.getWallet(params).then(function(wallet) {
+    PaysharesWallet.getWallet(params).then(function(wallet) {
       var keychainData = JSON.parse(wallet.getKeychainData());
       return wallet.changePassword({
         newPassword: $scope.data.password,
@@ -79,16 +79,16 @@ angular.module('stellarClient').controller('ChangePasswordV2Ctrl', function($sco
         info: 'You wallet password has been changed. You can login now.'
       });
       $state.go('login');
-    }).catch(StellarWallet.errors.Forbidden, function(e) {
+    }).catch(PaysharesWallet.errors.Forbidden, function(e) {
       var errorMsg = 'Forbidden. ';
       if ($scope.totpRequired) {
         errorMsg += 'Are you sure 2FA code is correct?';
       }
       $scope.errors.usernameErrors.push(errorMsg);
-    }).catch(StellarWallet.errors.ConnectionError, function(e) {
+    }).catch(PaysharesWallet.errors.ConnectionError, function(e) {
       $scope.errors.usernameErrors.push('Error connecting wallet server. Please try again later.');
     }).catch(function(e) {
-      Raven.captureMessage('StellarWallet.getWallet/StellarWallet.changePassword unknown error', {
+      Raven.captureMessage('PaysharesWallet.getWallet/PaysharesWallet.changePassword unknown error', {
         extra: {
           error: e
         }

@@ -1,5 +1,5 @@
 var filterMod = angular.module('filters', []);
-var Amount = stellar.Amount;
+var Amount = payshares.Amount;
 
 /* jshint camelcase:false */
 
@@ -17,7 +17,7 @@ filterMod.filter('amountToHuman', function () {
             return "";
         }
         var opts = {};
-        var currency = StellarDefaultCurrencyMap[input._currency.to_human()];
+        var currency = PaysharesDefaultCurrencyMap[input._currency.to_human()];
         opts.precision = currency ? currency.maxDecimalPlaces : 2;
         opts.skip_empty_fraction = true;
         opts.max_sig_digits = 6;
@@ -38,7 +38,7 @@ filterMod.filter('roundAmount', function () {
         }
 
         var precision = 4;
-        var currencyInfo = StellarDefaultCurrencyMap[currency];
+        var currencyInfo = PaysharesDefaultCurrencyMap[currency];
         // Also handles the case where currency is undefined
         if (typeof currencyInfo !== 'undefined') {
             precision = currencyInfo.maxDecimalPlaces;
@@ -49,7 +49,7 @@ filterMod.filter('roundAmount', function () {
 });
 
 /**
-* Turn a stellar address into a username
+* Turn a payshares address into a username
 */
 filterMod.filter('addressToUsername', function (contacts) {
     return function (input, options) {
@@ -63,7 +63,7 @@ filterMod.filter('addressToUsername', function (contacts) {
           }
         }
         if (!input){
-            return ""; // no issuer for STR
+            return ""; // no issuer for XPR
         }
         return input;
     };
@@ -186,7 +186,7 @@ filterMod.filter('shrinkText', function($sce){
 
 filterMod.filter('currencyName', function() {
     return function(currency) {
-        var description = StellarDefaultCurrencyMap[currency] || {};
+        var description = PaysharesDefaultCurrencyMap[currency] || {};
         return description.name || currency;
     };
 });

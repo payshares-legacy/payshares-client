@@ -1,8 +1,8 @@
-angular.module('stellarClient').factory('OrderBook', function($q, $rootScope, TradingOps, StellarNetwork, CurrencyPairs, TransactionCurator, FriendlyOffers, PriceLevelList) {
+angular.module('paysharesClient').factory('OrderBook', function($q, $rootScope, TradingOps, PaysharesNetwork, CurrencyPairs, TransactionCurator, FriendlyOffers, PriceLevelList) {
 
   var orderbooks = {};
 
-  $rootScope.$on('stellar-network:transaction', updateOrderBooks);
+  $rootScope.$on('payshares-network:transaction', updateOrderBooks);
   $rootScope.$on('trading:trade', updateLastPrices);
 
   var getOrderBook = function(currencyPair) {
@@ -49,11 +49,11 @@ angular.module('stellarClient').factory('OrderBook', function($q, $rootScope, Tr
 
   OrderBook.prototype.subscribe = function() {
     var self = this;
-    return StellarNetwork.request("subscribe", this._subscribeParams()).then(function (results) {
+    return PaysharesNetwork.request("subscribe", this._subscribeParams()).then(function (results) {
       // this should set the 
       
-      var bids = results.bids.map(StellarNetwork.offer.decode);
-      var asks = results.asks.map(StellarNetwork.offer.decode);
+      var bids = results.bids.map(PaysharesNetwork.offer.decode);
+      var asks = results.asks.map(PaysharesNetwork.offer.decode);
 
       self.currentOffers = {
         bids: bids,
@@ -65,7 +65,7 @@ angular.module('stellarClient').factory('OrderBook', function($q, $rootScope, Tr
   };
 
   OrderBook.prototype.unsubscribe = function() {
-    return StellarNetwork.request("unsubscribe", this._subscribeParams());
+    return PaysharesNetwork.request("unsubscribe", this._subscribeParams());
   };
 
 
@@ -75,7 +75,7 @@ angular.module('stellarClient').factory('OrderBook', function($q, $rootScope, Tr
    *
    * This method is the means through which we update order books in a live
    * manner.  Rather than having OrderBooks manage their own communication with
-   * stellard (since subscriptions are owned on the Remote) t
+   * paysharesd (since subscriptions are owned on the Remote) t
    *
    */
   OrderBook.prototype.ingestOffers = function(added, changed, removed) {

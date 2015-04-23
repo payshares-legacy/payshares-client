@@ -1,18 +1,18 @@
 'use strict';
 /* jshint camelcase:false */
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
-sc.controller('SendController', function($rootScope, $scope, $analytics, StellarNetwork) {
+sc.controller('SendController', function($rootScope, $scope, $analytics, PaysharesNetwork) {
   $scope.send = {};
-  // The stellar account we're sending to.
+  // The payshares account we're sending to.
   $scope.send.destination = {};
   // The amount we're sending. An Amount object
   $scope.send.amount = null;
   // The state the send pane is in - form, confirm, or sending
   $scope.send.state = null;
   // The currencies a user can choose from. Constrained based on destination
-  $scope.send.currencyChoices = _.pluck(StellarDefaultCurrencyList, 'value');
+  $scope.send.currencyChoices = _.pluck(PaysharesDefaultCurrencyList, 'value');
   // The currency we're sending in
   $scope.send.currency = null;
   // Status of the find path we're running
@@ -21,7 +21,7 @@ sc.controller('SendController', function($rootScope, $scope, $analytics, Stellar
   $scope.send.paths = [];
   // The path the user chooses.
   $scope.send.path = null;
-  // This is our subscription to find path on the stellar network.
+  // This is our subscription to find path on the payshares network.
   $scope.send.findpath = null;
   // True if this is not a direct send (we're going through an offer).
   $scope.send.indirect = false;
@@ -43,7 +43,7 @@ sc.controller('SendController', function($rootScope, $scope, $analytics, Stellar
   };
 
   // global notifications
-  $scope.$on('stellar-network:connected', function(){
+  $scope.$on('payshares-network:connected', function(){
     if ($scope.send.state === "disconnected") {
       $scope.setState("form");
     }
@@ -67,7 +67,7 @@ sc.controller('SendController', function($rootScope, $scope, $analytics, Stellar
 
   $scope.resetDestinationDependencies = function () {
     $scope.send.destination = {};
-    $scope.send.currencyChoices = _.pluck(StellarDefaultCurrencyList, 'value');
+    $scope.send.currencyChoices = _.pluck(PaysharesDefaultCurrencyList, 'value');
   };
 
   $scope.resetCurrencyDependencies = function () {
@@ -109,8 +109,8 @@ sc.controller('SendController', function($rootScope, $scope, $analytics, Stellar
 
   /*
   * An indirect path is a path that uses an offer or ripple to fill the transaction.
-  * An example of an INDIRECT path is a payment transaction from sender STR -> STR/USD offer -> receive USD
-  * An example of a DIRECT path is a payment transaction from sender StellarGateway USD -> receive StellarGateway USD.
+  * An example of an INDIRECT path is a payment transaction from sender XPR -> XPR/USD offer -> receive USD
+  * An example of a DIRECT path is a payment transaction from sender PaysharesGateway USD -> receive PaysharesGateway USD.
   * We check if the given path's path array is longer than 1 (if there's no path array or if it's of length one, it's a direct path).
   */
   function isPathIndirect(path) {
@@ -131,7 +131,7 @@ sc.controller('SendController', function($rootScope, $scope, $analytics, Stellar
     var destination = $scope.send.destination;
     var amount = $scope.send.amount;
 
-    var tx = StellarNetwork.remote.transaction();
+    var tx = PaysharesNetwork.remote.transaction();
     tx.payment($rootScope.account.Account, destination.address, amount.to_json());
 
     if (destination.destinationTag) {
@@ -159,7 +159,7 @@ sc.controller('SendController', function($rootScope, $scope, $analytics, Stellar
   };
 
   $scope.onTransactionSuccess = function (res) {
-    $scope.trackPaymentEvent("Stellars Sent");
+    $scope.trackPaymentEvent("Paysharess Sent");
 
     $scope.$apply(function () {
       $scope.setEngineStatus(res, true);
@@ -205,12 +205,12 @@ sc.controller('SendController', function($rootScope, $scope, $analytics, Stellar
     case 'tec':
       $scope.send.result = "error";
       $scope.error_type = "noPath";
-      $scope.send.result = "stellarerror";
+      $scope.send.result = "payshareserror";
       $scope.error_message = "An error occurred: " + res.engine_result_message;
       break;
 
     default:
-      $scope.send.result = "stellarerror";
+      $scope.send.result = "payshareserror";
       //TODO: set an error type and unify our error reporting for the send pane
       $scope.error_message = "An error occurred: " + res.engine_result_message;
     }

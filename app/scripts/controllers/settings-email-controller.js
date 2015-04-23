@@ -1,4 +1,4 @@
-angular.module('stellarClient').controller('SettingsEmailCtrl', function($scope, $http, $state, $q, $analytics, session, singletonPromise) {
+angular.module('paysharesClient').controller('SettingsEmailCtrl', function($scope, $http, $state, $q, $analytics, session, singletonPromise) {
   $scope.loading = true;
   $scope.error = null;
 

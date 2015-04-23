@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mockGateway', [])
-//This is just a partial mock, mainly to avoid talking directly with stellartxt
+//This is just a partial mock, mainly to avoid talking directly with paysharestxt
   .factory('Gateways', ['$q', function($q) {
     var gateway = {
       search: function (domain) {

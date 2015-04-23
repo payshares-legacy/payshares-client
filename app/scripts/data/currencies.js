@@ -1,19 +1,19 @@
 /**
- * Stellar default external currency list.
+ * Payshares default external currency list.
  *
  * These currencies are ranked by value of notes in circulation. Source:
  *
  * * http://goldnews.bullionvault.com/all_the_money_in_the_world_102720093
  *   (A better source is welcome. Note: The US dollar was moved to the top.)
  *
- * Important: STR must be the first entry in this list.
+ * Important: XPR must be the first entry in this list.
  *
  * @constant
  * @memberOf Data
  */
-window.StellarDefaultCurrencyList =
+window.PaysharesDefaultCurrencyList =
 [
-    {value: 'STR', name: 'STR - Stellars', order: 4, maxDecimalPlaces: 0},
+    {value: 'XPR', name: 'XPR - Paysharess', order: 4, maxDecimalPlaces: 0},
     {value: 'USD', name: 'USD - US Dollar', order: 3, maxDecimalPlaces: 2},
     {value: 'EUR', name: 'EUR - Euro', order: 2, maxDecimalPlaces: 2},
     {value: 'BTC', name: 'BTC - Bitcoin', order: 1, maxDecimalPlaces: 6},
@@ -38,4 +38,4 @@ window.StellarDefaultCurrencyList =
 ];
 
 
-window.StellarDefaultCurrencyMap = _.indexBy(StellarDefaultCurrencyList, 'value');
+window.PaysharesDefaultCurrencyMap = _.indexBy(PaysharesDefaultCurrencyList, 'value');

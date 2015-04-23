@@ -11,9 +11,9 @@
 
 /* jshint camelcase:false */
  
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
-sc.factory('rpReverseFederation', function ($q, $http, rpStellarTxt) {
+sc.factory('rpReverseFederation', function ($q, $http, rpPaysharesTxt) {
     var results = {};
 
     function checkAddress(address) {
@@ -28,7 +28,7 @@ sc.factory('rpReverseFederation', function ($q, $http, rpStellarTxt) {
 
 
         var domain = Options.DEFAULT_FEDERATION_DOMAIN;
-        var txtPromise = rpStellarTxt.get(domain);
+        var txtPromise = rpPaysharesTxt.get(domain);
 
         if (txtPromise) {
             txtPromise.then(processTxt, handleNoTxt);
@@ -41,8 +41,8 @@ sc.factory('rpReverseFederation', function ($q, $http, rpStellarTxt) {
         function handleNoTxt() {
             reverseFederationPromise.reject({
                 result: "error",
-                error: "noStellarTxt",
-                error_message: "Stellar.txt not available for the requested domain."
+                error: "noPaysharesTxt",
+                error_message: "Payshares.txt not available for the requested domain."
             });
         }
 

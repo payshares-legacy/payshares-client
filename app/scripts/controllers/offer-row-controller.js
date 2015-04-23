@@ -1,4 +1,4 @@
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.controller('OfferRowCtrl', function($scope, Trading, singletonPromise) {
 

@@ -1,4 +1,4 @@
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 /* global addEmailForm */
 
 sc.controller('AddEmailCtrl', function ($scope, $rootScope, $http, $state, $analytics, session) {

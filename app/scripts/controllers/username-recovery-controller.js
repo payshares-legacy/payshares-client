@@ -1,6 +1,6 @@
 'use strict';
 /* global recoverform */
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.controller('UsernameRecoveryCtrl', function($rootScope, $scope, $http, $state, $q, singletonPromise) {
 

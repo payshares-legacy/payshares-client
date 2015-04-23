@@ -1,4 +1,4 @@
-angular.module('stellarClient').factory('PriceLevelList', function(FriendlyOffers) {
+angular.module('paysharesClient').factory('PriceLevelList', function(FriendlyOffers) {
 
   /**
    * @param {string} offerType (either 'bid' or 'ask')

@@ -1,6 +1,6 @@
 'use strict';
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.controller('RecoveryCtrl', function($scope, $state, $http, $timeout, session, Wallet) {
   $scope.username = null;

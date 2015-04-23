@@ -1,11 +1,11 @@
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 /**
  
- The StellarNetwork service is used to communicate with the Stellar network.
+ The PaysharesNetwork service is used to communicate with the Payshares network.
 
- @namespace  StellarNetwork */
-sc.factory('StellarNetwork', function($rootScope, $timeout, $q) {
+ @namespace  PaysharesNetwork */
+sc.factory('PaysharesNetwork', function($rootScope, $timeout, $q) {
     var self                  = {};
     self.remote               = null;
     self.connected            = false;
@@ -15,32 +15,32 @@ sc.factory('StellarNetwork', function($rootScope, $timeout, $q) {
         $timeout(function () {
             self.connected = false;
             $rootScope.connected = false;
-            $rootScope.$broadcast('stellar-network:disconnected');
+            $rootScope.$broadcast('payshares-network:disconnected');
         });
     };
 
     var handleReconnecting = function(timeout) {
         $timeout(function () {
-            $rootScope.$broadcast('stellar-network:reconnecting', timeout);
+            $rootScope.$broadcast('payshares-network:reconnecting', timeout);
         });
     };
 
     var handleConnecting = function() {
         $timeout(function () {
-            $rootScope.$broadcast('stellar-network:connecting');
+            $rootScope.$broadcast('payshares-network:connecting');
         });
     };
 
     var handleConnect = function (e) {
         $timeout(function () {
             /*jshint camelcase: false */
-            // TODO: need to figure out why this isn't being set when we connect to the stellard
+            // TODO: need to figure out why this isn't being set when we connect to the paysharesd
             self.remote._reserve_base=50*1000000;
             self.remote._reserve_inc=10*1000000;
 
             self.connected = true;
             $rootScope.connected = true;
-            $rootScope.$broadcast('stellar-network:connected');
+            $rootScope.$broadcast('payshares-network:connected');
 
             if(self.waitingForConnection) {
                 self.waitingForConnection.resolve();
@@ -50,12 +50,12 @@ sc.factory('StellarNetwork', function($rootScope, $timeout, $q) {
 
     var handleTransaction = function(tx) {
       $timeout(function () {
-        $rootScope.$broadcast('stellar-network:transaction', tx);
+        $rootScope.$broadcast('payshares-network:transaction', tx);
       });
     };
 
     var init = function () {
-        self.remote = new stellar.Remote(Options.server, true);
+        self.remote = new payshares.Remote(Options.server, true);
         self.remote.connect();
         self.remote.on('connected', handleConnect);
         self.remote.on('disconnected', handleDisconnect);
@@ -99,7 +99,7 @@ sc.factory('StellarNetwork', function($rootScope, $timeout, $q) {
     self.request = function (method, params) {
         //TODO: throw a better error
         if (!self.remote) { throw new Error("Network is not initialized"); }
-        var req = new stellar.Request(self.remote, method);
+        var req = new payshares.Request(self.remote, method);
 
         // fold the params into the message object
         _.extend(req.message, params);
@@ -147,18 +147,18 @@ sc.factory('StellarNetwork', function($rootScope, $timeout, $q) {
     };
 
 
-    /** @namespace  StellarNetwork.amount */
+    /** @namespace  PaysharesNetwork.amount */
     self.amount = {};
 
     /**
-     * Normalizes a stellard native amount (which could be either a raw number
-     * for STR or a currency/value/issuer object for other currencies) into our
+     * Normalizes a paysharesd native amount (which could be either a raw number
+     * for XPR or a currency/value/issuer object for other currencies) into our
      * normalized {@link Structs.Amount} form.
      *
      * @param {string|number|object} nativeAmount the amount as reported from json
-     *                                            originating from stellard
+     *                                            originating from paysharesd
      * @return {Structs.Amount} the normalized amount
-     * @memberOf StellarNetwork.amount
+     * @memberOf PaysharesNetwork.amount
      * @function decode
      */
     self.amount.decode = function(nativeAmount) {
@@ -168,7 +168,7 @@ sc.factory('StellarNetwork', function($rootScope, $timeout, $q) {
         case "string":
         case "number":
           return {
-            currency: "STR",
+            currency: "XPR",
             value: new BigNumber(nativeAmount).div(1000000).toString()
           };
         case "object":
@@ -179,12 +179,12 @@ sc.factory('StellarNetwork', function($rootScope, $timeout, $q) {
     };
 
     /**
-     * Converts a account line returned from stellard's account_line and
+     * Converts a account line returned from paysharesd's account_line and
      * turns it into a amount struct
      *
-     * @param {object} accountLine an accountLine object from stellard's account_line
+     * @param {object} accountLine an accountLine object from paysharesd's account_line
      * @return {Structs.Amount} amount struct built from the account line
-     * @memberOf StellarNetwork.amount
+     * @memberOf PaysharesNetwork.amount
      * @function decodeFromAccountLine
      */
     self.amount.decodeFromAccountLine = function(accountLine) {
@@ -201,21 +201,21 @@ sc.factory('StellarNetwork', function($rootScope, $timeout, $q) {
 
     /**
      * Given a {@link Structs.Amount}, convert it back to a form that can be used
-     * in communication with stellard
+     * in communication with paysharesd
      * 
      * @param  {Structs.Amount} normalizedAmount
      * @return {string|object}                  
-     * @memberOf StellarNetwork.amount
+     * @memberOf PaysharesNetwork.amount
      * @function encode
      */
     self.amount.encode = function(normalizedAmount) {
-      if(normalizedAmount.currency === "STR") {
+      if(normalizedAmount.currency === "XPR") {
         var stroopAmount = new BigNumber(normalizedAmount.value).times(1000000);
 
         // confirm there resultant stroop value isn't fractional
         var hasFraction = !stroopAmount.ceil().equals(stroopAmount);
         if(hasFraction) {
-          throw new Error("Cannot encode STR amount: " + normalizedAmount.value);
+          throw new Error("Cannot encode XPR amount: " + normalizedAmount.value);
         }
 
         return stroopAmount.toString();
@@ -225,16 +225,16 @@ sc.factory('StellarNetwork', function($rootScope, $timeout, $q) {
     };
 
 
-    /** @namespace  StellarNetwork.currency */
+    /** @namespace  PaysharesNetwork.currency */
     self.currency = {};
     /**
-     * Normalizes a stellard native currency (which could be either STR or 
+     * Normalizes a paysharesd native currency (which could be either XPR or 
      * currency/issuer object for other currencies) into our normalized 
      * {@link Structs.Currency} form.
      *
      * @param {string|object} nativeCurrency 
      * @return {Structs.Currency} the normalized currency
-     * @memberOf StellarNetwork.currency
+     * @memberOf PaysharesNetwork.currency
      * @function decode
      */
     self.currency.decode = function(nativeCurrency) {
@@ -242,7 +242,7 @@ sc.factory('StellarNetwork', function($rootScope, $timeout, $q) {
   
       switch(currencyType) {
         case "string":
-          return { currency: "STR" };
+          return { currency: "XPR" };
         case "object":
           return nativeCurrency;
         default:
@@ -253,22 +253,22 @@ sc.factory('StellarNetwork', function($rootScope, $timeout, $q) {
 
     /**
      * Given a {@link Structs.Currency}, convert it back to a form that can be used
-     * in communication with stellard
+     * in communication with paysharesd
      * 
      * @param  {Structs.Currency} normalizedCurrency
      * @return {string|object}                  
-     * @memberOf StellarNetwork.currency
+     * @memberOf PaysharesNetwork.currency
      * @function encode
      */
     self.currency.encode = function(normalizedCurrency) {
-      if(normalizedCurrency.currency === "STR") {
+      if(normalizedCurrency.currency === "XPR") {
         return normalizedCurrency.currency;
       } else {
         return normalizedCurrency;
       }
     };
 
-    /** @namespace  StellarNetwork.offer */
+    /** @namespace  PaysharesNetwork.offer */
     self.offer = {};
 
     

@@ -1,8 +1,8 @@
 'use strict';
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
-sc.controller('DashboardCtrl', function($rootScope, $scope, $timeout, $state, session, TutorialHelper, StellarNetwork, contacts, FlashMessages) {
+sc.controller('DashboardCtrl', function($rootScope, $scope, $timeout, $state, session, TutorialHelper, PaysharesNetwork, contacts, FlashMessages) {
     if (session.get('wallet').mainData.needsRecoveryCodeReset) {
       FlashMessages.add({
         id: 'migrated-wallet-recovery',
@@ -114,7 +114,7 @@ sc.controller('DashboardCtrl', function($rootScope, $scope, $timeout, $state, se
 
     // TODO: Use the Balances service
     function fetchCurrencies() {
-        StellarNetwork.request('account_lines', { 'account': session.get('address') })
+        PaysharesNetwork.request('account_lines', { 'account': session.get('address') })
             .then(function(result) {
                 processAccountLines(result.lines);
             });

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('stellarClient').controller('Lost2FADeviceCtrl', function($scope, singletonPromise) {
+angular.module('paysharesClient').controller('Lost2FADeviceCtrl', function($scope, singletonPromise) {
   $scope.error = null;
   $scope.sent = false;
 
@@ -12,20 +12,20 @@ angular.module('stellarClient').controller('Lost2FADeviceCtrl', function($scope,
   $scope.asyncRequest = singletonPromise(function() {
     $scope.error = null;
 
-    StellarWallet.lostTotpDevice({
+    PaysharesWallet.lostTotpDevice({
       server: Options.WALLET_SERVER+'/v2',
-      username: $scope.username+'@stellar.org',
+      username: $scope.username+'@payshares.org',
       password: $scope.password
     }).then(function() {
       $scope.sent = true;
-    }).catch(StellarWallet.errors.WalletNotFound, function() {
+    }).catch(PaysharesWallet.errors.WalletNotFound, function() {
       $scope.sent = true;
-    }).catch(StellarWallet.errors.MissingField, function() {
+    }).catch(PaysharesWallet.errors.MissingField, function() {
       $scope.error = 'Please fill in all fields.';
-    }).catch(StellarWallet.errors.ConnectionError, function() {
+    }).catch(PaysharesWallet.errors.ConnectionError, function() {
       $scope.error = 'Problems connecting wallet server. Please try again later.';
     }).catch(function(e) {
-      Raven.captureMessage('StellarWallet.lostTotpDevice unknown error', {
+      Raven.captureMessage('PaysharesWallet.lostTotpDevice unknown error', {
         extra: {
           error: e
         }

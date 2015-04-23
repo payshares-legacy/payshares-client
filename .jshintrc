@@ -29,10 +29,10 @@
         "sjcl",
         "nacl",
         "Raven",
-        "stellar",
-        "StellarDefaultCurrencyList", 
-        "StellarDefaultCurrencyMap",
-        "StellarWallet",
+        "payshares",
+        "PaysharesDefaultCurrencyList", 
+        "PaysharesDefaultCurrencyMap",
+        "PaysharesWallet",
         "Util",
         "-module"
     ]

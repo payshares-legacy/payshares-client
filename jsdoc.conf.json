@@ -11,7 +11,7 @@
     ],
     "templates": {
         "cleverLinks": true,
-        "systemName":  "Stellar Client",
+        "systemName":  "Payshares Client",
         "theme":       "flatly",
         "linenums":    true,
         "navType":     "vertical",

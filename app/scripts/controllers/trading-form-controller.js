@@ -1,13 +1,13 @@
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.controller('TradingFormCtrl', function($scope, $state, session, singletonPromise, FlashMessages, ActionLink) {
   // Populate the currency lists from the wallet's gateways.
   var gateways = session.get('wallet').get('mainData', 'gateways', []);
   var gatewayCurrencies = _.flatten(_.pluck(gateways, 'currencies'));
-  $scope.currencies = [{currency:"STR"}].concat(gatewayCurrencies);
+  $scope.currencies = [{currency:"XPR"}].concat(gatewayCurrencies);
   $scope.currencyNames = _.uniq(_.pluck($scope.currencies, 'currency'));
-  var MAX_STR_AMOUNT = new BigNumber(2).toPower(64).minus(1).dividedBy('1000000'); // (2^64-1)/10^6
-  var MAX_CREDIT_PRECISION = 14; // stellard credits supports up to 15 significant digits
+  var MAX_XPR_AMOUNT = new BigNumber(2).toPower(64).minus(1).dividedBy('1000000'); // (2^64-1)/10^6
+  var MAX_CREDIT_PRECISION = 14; // paysharesd credits supports up to 15 significant digits
 
 
   $scope.changeBaseCurrency = function(newCurrency) {
@@ -135,7 +135,7 @@ sc.controller('TradingFormCtrl', function($scope, $state, session, singletonProm
     $scope.formIsValid = validateCurrencies() && validateTradeAmount(baseAmount) && validateTradeAmount(counterAmount);
 
     // Price is optional and when it is not filled out, we want to display what the calculated price is
-    // in the info line (where it says: Buy 2 BTC for 160000 STR at 80000 STR/BTC)
+    // in the info line (where it says: Buy 2 BTC for 160000 XPR at 80000 XPR/BTC)
     if ($scope.formIsValid) {
       calculateTrueTradePrice();
     }
@@ -155,10 +155,10 @@ sc.controller('TradingFormCtrl', function($scope, $state, session, singletonProm
     }
   }
 
-  // Truncate the amount to match stellard's max precision
-  // and round STR to 6 decimal places.
+  // Truncate the amount to match paysharesd's max precision
+  // and round XPR to 6 decimal places.
   function normalizeAmount(amount, currency) {
-    if(currency === 'STR') {
+    if(currency === 'XPR') {
       amount = new BigNumber(amount).toFixed(6);
       amount = new BigNumber(amount).toString();
     }
@@ -186,16 +186,16 @@ sc.controller('TradingFormCtrl', function($scope, $state, session, singletonProm
     }
 
     var amountNegative    = value.lessThanOrEqualTo(0);
-    var STRBoundsError    = amount.currency === "STR" && value.greaterThan(MAX_STR_AMOUNT);
-    var STRPrecisionError = amount.currency === "STR" && !value.equals(value.toFixed(6));
-    var creditBoundsError = amount.currency !== "STR" && value.c.length > MAX_CREDIT_PRECISION;
+    var XPRBoundsError    = amount.currency === "XPR" && value.greaterThan(MAX_XPR_AMOUNT);
+    var XPRPrecisionError = amount.currency === "XPR" && !value.equals(value.toFixed(6));
+    var creditBoundsError = amount.currency !== "XPR" && value.c.length > MAX_CREDIT_PRECISION;
 
     if (amountNegative) {
       $scope.formErrorMessage = amount.currency + ' amount must be a positive number';
-    } else if (STRBoundsError) {
-      $scope.formErrorMessage = 'STR amount is too large: ' + value.toString();
-    } else if (STRPrecisionError) {
-      $scope.formErrorMessage = 'STR amount has too many decimals: ' + value.toString();
+    } else if (XPRBoundsError) {
+      $scope.formErrorMessage = 'XPR amount is too large: ' + value.toString();
+    } else if (XPRPrecisionError) {
+      $scope.formErrorMessage = 'XPR amount has too many decimals: ' + value.toString();
     } else if (creditBoundsError) {
       $scope.formErrorMessage = amount.currency + ' amount has too much precision: ' + value.toString();
     } else {

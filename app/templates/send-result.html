@@ -1,7 +1,7 @@
 <div class="mode-sending">
     <div ng-show="send.result=='sending'" class="mode-sending">
         <img class="sending-rocket" src="./images/sending.gif"/>
-        <p rp-spinner="4" class="literal">Sending transaction to Stellar network</p>
+        <p rp-spinner="4" class="literal">Sending transaction to Payshares network</p>
         <hr/>
         <p>
             <button ng-click="reset()" class="btn btn-default">Stop waiting</button>
@@ -15,7 +15,7 @@
             </div>
             <div ng-switch-when="noPath" class="result-error">
                 <h2 class="tx-status">No Path</h2>
-                <p>Stellar was unable to find a path between you and the destination account.</p>
+                <p>Payshares was unable to find a path between you and the destination account.</p>
             </div>
             <div ng-switch-when="invalidTransaction" class="result-error">
                 <h2 class="tx-status">Invalid transaction</h2>
@@ -34,7 +34,7 @@
         </p>
     </div>
 
-    <div ng-show="send.result=='stellarerror'" class="modalStatus error-modalStatus">
+    <div ng-show="send.result=='payshareserror'" class="modalStatus error-modalStatus">
         <div class="modalStatus-title">Oops</div>
         <div class="modalStatus-info">{{error_message}}</div>
         <button class="btn btn-default modalStatus-btn" ng-click="reset()">Try again</button>
@@ -77,7 +77,7 @@
         </div>
         <div ng-show="tx_result=='claim'" class="result-malformed">
             <h2 class="tx-status">Transaction failed!</h2>
-            <p ng-switch on="engine_result"><span ng-switch-when="tecNO_DST">The destination account does not exist.</span><span ng-switch-when="tecNO_DST_INSUF_XRP">The destination account does not exist. Too little STR sent to create it.</span><span ng-switch-default="ng-switch-default">Error: {{engine_result_message}}</span></p>
+            <p ng-switch on="engine_result"><span ng-switch-when="tecNO_DST">The destination account does not exist.</span><span ng-switch-when="tecNO_DST_INSUF_XRP">The destination account does not exist. Too little XPR sent to create it.</span><span ng-switch-default="ng-switch-default">Error: {{engine_result_message}}</span></p>
         </div>
         <div ng-show="tx_result=='failed'" class="result-failed">
             <h2 class="tx-status">Transaction failed!</h2>

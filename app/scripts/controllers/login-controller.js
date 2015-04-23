@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('stellarClient').controller('LoginCtrl', function($rootScope, $scope, $state, $http, $timeout, $q, session, singletonPromise, FlashMessages) {
+angular.module('paysharesClient').controller('LoginCtrl', function($rootScope, $scope, $state, $http, $timeout, $q, session, singletonPromise, FlashMessages) {
   $scope.username   = null;
   $scope.loginError = null;
 
@@ -19,7 +19,7 @@ angular.module('stellarClient').controller('LoginCtrl', function($rootScope, $sc
       return $q.reject();
     }
 
-    var usernameV2 = $scope.username+'@stellar.org';
+    var usernameV2 = $scope.username+'@payshares.org';
 
     return $http.post(Options.WALLET_SERVER + '/v2/wallets/show_login_params', {
         username: usernameV2
@@ -45,7 +45,7 @@ angular.module('stellarClient').controller('LoginCtrl', function($rootScope, $sc
   if (location.search.match('idle')) {
     FlashMessages.add({
       title: 'You\'ve been logged out',
-      info: 'For your security, you have been logged out because your browser is idle. Please log back in to continue using Stellar.',
+      info: 'For your security, you have been logged out because your browser is idle. Please log back in to continue using Payshares.',
       type: 'error'
     });
   }

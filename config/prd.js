@@ -2,7 +2,7 @@
 window.Options = {
     server: {
         "trusted" : true,
-        "websocket_ip" : "live.stellar.org",
+        "websocket_ip" : "live.payshares.org",
         "websocket_port" : 9001,
         "websocket_ssl" : true
     },
@@ -16,11 +16,11 @@ window.Options = {
     INFLATION_DEST: 'g4eRqgZfzfj3132y17iaf2fp6HQj1gofjt',
 
     APP_ID: '1411202179109031',
-    DOMAIN_NAME: 'stellar.org',
-    DEFAULT_FEDERATION_DOMAIN: 'stellar.org',
-    API_SERVER: 'https://api.stellar.org',
+    DOMAIN_NAME: 'payshares.org',
+    DEFAULT_FEDERATION_DOMAIN: 'payshares.org',
+    API_SERVER: 'https://api.payshares.org',
     API_STATUS_PATH: '/status.json',
-    WALLET_SERVER: 'https://wallet.stellar.org',
+    WALLET_SERVER: 'https://wallet.payshares.org',
 
     PERSISTENT_SESSION : false,
     DEFAULT_IDLE_LOGOUT_TIMEOUT : 30 * 60 * 1000, //15 minutes

@@ -1,5 +1,5 @@
 //top 1,000 bad passwords by frequency
-angular.module('stellarClient').constant('badPasswords', _([
+angular.module('paysharesClient').constant('badPasswords', _([
     "password",
     "123456",
     "12345678",

@@ -1,5 +1,5 @@
 {
-  "name": "stellar-client",
+  "name": "payshares-client",
   "private": true,
   "dependencies": {
     "bootstrap-sass-official": "3.1.1+2",
@@ -21,9 +21,9 @@
     "ng-grid": "deckar01/ng-grid",
     "angular-cookie": "4.0.6",
     "ng-clip": "0.2.4",
-    "stellar-wallet-js-sdk": "git+https://github.com/stellar/stellar-wallet-js-sdk.git#master",
+    "payshares-wallet-js-sdk": "git+https://github.com/payshares/payshares-wallet-js-sdk.git#master",
     "tweetnacl": "0.11.2",
-    "stellar-lib": "0.10.1",
+    "payshares-lib": "0.10.1",
     "zeroclipboard": "2.1.6",
     "bignumber.js": "1.4.1",
     "angulartics": "0.17.1",

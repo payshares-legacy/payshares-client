@@ -2,7 +2,7 @@
  * @namespace Directives
  */
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 /**
 * A directive that includes the toggle template.

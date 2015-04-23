@@ -1,10 +1,10 @@
 'use strict';
 /* global inviteForm */
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.controller('InvitesCtrl', function($scope, $http, $q, $filter, $analytics, session, invites, singletonPromise) {
-    var INVITE_LINK = "https://launch.stellar.org/#/register?inviteCode=";
+    var INVITE_LINK = "https://launch.payshares.org/#/register?inviteCode=";
 
     $scope.getInvites = function () {
         return session.getUser().getInvites();
@@ -31,7 +31,7 @@ sc.controller('InvitesCtrl', function($scope, $http, $q, $filter, $analytics, se
 
     $scope.inviteStatus = {
         success: {
-            text: "Received stellars!",
+            text: "Received paysharess!",
             class: "success"
         },
         waiting: {

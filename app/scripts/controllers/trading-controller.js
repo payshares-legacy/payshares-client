@@ -1,4 +1,4 @@
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.controller('TradingCtrl', function($scope, $q, Trading, Gateways, singletonPromise) {
   $scope.currentOrderBook = null;
@@ -11,7 +11,7 @@ sc.controller('TradingCtrl', function($scope, $q, Trading, Gateways, singletonPr
   };
 
   $scope.hasIssuer = function(currencyName) {
-    return currencyName && currencyName !== 'STR';
+    return currencyName && currencyName !== 'XPR';
   };
 
   $scope.issuerToGateway = function(issuer) {

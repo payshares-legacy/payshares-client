@@ -1,20 +1,20 @@
 /* global JsonRewriter */
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 /**
  * The TransactionCurator service performs transformations and introspections
- * of raw transaction data as reported from stellard.  It produces internal
+ * of raw transaction data as reported from paysharesd.  It produces internal
  * forms of the raw data that can be used consistenly across the codebase
  * 
  * @namespace TransactionCurator
  */
-sc.service('TransactionCurator', function(StellarNetwork, FriendlyOffers) {
+sc.service('TransactionCurator', function(PaysharesNetwork, FriendlyOffers) {
 
   /**
    * Given an offer create object, will return a 
    * 
-   * @param  {object} tx the raw transaction object from stellard
+   * @param  {object} tx the raw transaction object from paysharesd
    * @return {Structs.Offer}
    * @memberOf TransactionCurator
    * @function
@@ -26,8 +26,8 @@ sc.service('TransactionCurator', function(StellarNetwork, FriendlyOffers) {
     var result       = {};
     result.account   = transaction.Account;
     result.sequence  = transaction.Sequence;
-    result.takerPays = StellarNetwork.amount.decode(transaction.TakerPays);
-    result.takerGets = StellarNetwork.amount.decode(transaction.TakerGets);
+    result.takerPays = PaysharesNetwork.amount.decode(transaction.TakerPays);
+    result.takerGets = PaysharesNetwork.amount.decode(transaction.TakerGets);
 
     return result;
   };
@@ -36,7 +36,7 @@ sc.service('TransactionCurator', function(StellarNetwork, FriendlyOffers) {
    * Given a raw transaction, returns whether the offer created by the transaction
    * is unfilled, partially filled, or completely filled
    * 
-   * @param  {object} tx the raw transaction object from stellard
+   * @param  {object} tx the raw transaction object from paysharesd
    * @return {string}    'unfilled', 'filled', or 'partially-filled'
    * @memberOf TransactionCurator
    * @function
@@ -111,11 +111,11 @@ sc.service('TransactionCurator', function(StellarNetwork, FriendlyOffers) {
   }
 
   /**
-   * Since, at present, stellard presents us with two slightly different
+   * Since, at present, paysharesd presents us with two slightly different
    * keys that the tx data will be provided at, we use this method
    * to extract whichever is set
    *   
-   * @param  {object} tx the raw tx data from stellard
+   * @param  {object} tx the raw tx data from paysharesd
    * @return {object}    the extracted data
    * @memberOf TransactionCurator
    * @private
@@ -126,11 +126,11 @@ sc.service('TransactionCurator', function(StellarNetwork, FriendlyOffers) {
   }
 
   /**
-   * Since, at present, stellard presents us with two slightly different
+   * Since, at present, paysharesd presents us with two slightly different
    * keys that the tx meta data will be provided at, we use this method
    * to extract whichever is set
    *   
-   * @param  {object} tx the raw tx data from stellard
+   * @param  {object} tx the raw tx data from paysharesd
    * @return {object}    the extracted metadata
    * @memberOf TransactionCurator
    * @private
@@ -147,8 +147,8 @@ sc.service('TransactionCurator', function(StellarNetwork, FriendlyOffers) {
     var result       = {};
     result.account   = offerMeta.fields.Account;
     result.sequence  = offerMeta.fields.Sequence;
-    result.takerPays = StellarNetwork.amount.decode(offerMeta.fields.TakerPays);
-    result.takerGets = StellarNetwork.amount.decode(offerMeta.fields.TakerGets);
+    result.takerPays = PaysharesNetwork.amount.decode(offerMeta.fields.TakerPays);
+    result.takerGets = PaysharesNetwork.amount.decode(offerMeta.fields.TakerGets);
 
     return result;
   }

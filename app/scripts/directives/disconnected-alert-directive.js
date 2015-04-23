@@ -1,32 +1,32 @@
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.directive('disconnectedAlert', function() {
   return {
     restrict: 'E',
     transclude: true,
     scope: {},
-    controller: function($scope, $timeout, StellarNetwork) {
+    controller: function($scope, $timeout, PaysharesNetwork) {
       $scope.status = '';
       $scope.reconnectTime = 0;
       $scope.reconnectTimer = null;
 
-      if(StellarNetwork.connected) {
+      if(PaysharesNetwork.connected) {
         $scope.status = 'connected';
       }
 
-      $scope.$on('stellar-network:disconnected', function() {
+      $scope.$on('payshares-network:disconnected', function() {
         $scope.status = 'disconnected';
       });
 
-      $scope.$on('stellar-network:connected', function() {
+      $scope.$on('payshares-network:connected', function() {
         $scope.status = 'connected';
       });
 
-      $scope.$on('stellar-network:connecting', function() {
+      $scope.$on('payshares-network:connecting', function() {
         $scope.status = 'connecting';
       });
 
-      $scope.$on('stellar-network:reconnecting', function(e, timeout) {
+      $scope.$on('payshares-network:reconnecting', function(e, timeout) {
         $scope.status = 'reconnecting';
         $scope.reconnectTime = Date.now() + timeout;
 
@@ -48,7 +48,7 @@ sc.directive('disconnectedAlert', function() {
       };
 
       $scope.reconnect = function() {
-        StellarNetwork.forceReconnect();
+        PaysharesNetwork.forceReconnect();
       };
     },
     templateUrl: 'templates/disconnected-alert.html'

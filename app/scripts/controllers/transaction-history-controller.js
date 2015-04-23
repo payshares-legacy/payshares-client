@@ -1,7 +1,7 @@
 'use strict';
 /* global ngGridFlexibleHeightPlugin */
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.controller('TransactionHistoryCtrl', function($scope, PaymentHistory) {
   $scope.typeIcons = {

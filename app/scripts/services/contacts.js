@@ -1,6 +1,6 @@
 'use strict';
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 Options.MAX_CONTACT_AGE = Options.MAX_CONTACT_AGE || 24 * 60 * 60 * 1000; // One day in milliseconds.
 
@@ -10,11 +10,11 @@ sc.service('contacts', function($q, rpFederation, rpReverseFederation) {
 
   // Try to load the contact list from localStorage.
   try {
-    if (localStorage.stellarContactsByAddress) {
-      contactsByAddress = JSON.parse(localStorage.stellarContactsByAddress);
+    if (localStorage.paysharesContactsByAddress) {
+      contactsByAddress = JSON.parse(localStorage.paysharesContactsByAddress);
     }
-    if (localStorage.stellarContactsByEmail) {
-      contactsByEmail = JSON.parse(localStorage.stellarContactsByEmail);
+    if (localStorage.paysharesContactsByEmail) {
+      contactsByEmail = JSON.parse(localStorage.paysharesContactsByEmail);
     }
   } catch(err) {
     // Unable to access localStorage.
@@ -37,8 +37,8 @@ sc.service('contacts', function($q, rpFederation, rpReverseFederation) {
 
     // Try to save the contact list to localStorage.
     try {
-      localStorage.stellarContactsByAddress = JSON.stringify(contactsByAddress);
-      localStorage.stellarContactsByEmail = JSON.stringify(contactsByEmail);
+      localStorage.paysharesContactsByAddress = JSON.stringify(contactsByAddress);
+      localStorage.paysharesContactsByEmail = JSON.stringify(contactsByEmail);
     } catch(err) {
       // Unable to access localStorage.
     }

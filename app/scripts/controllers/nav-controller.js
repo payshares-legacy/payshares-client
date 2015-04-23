@@ -1,6 +1,6 @@
 'use strict';
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.controller('NavCtrl', function($scope, session) {
   // The session is initially not logged in.
@@ -31,7 +31,7 @@ sc.controller('NavCtrl', function($scope, session) {
   }
 
   $scope.getLogoLink = function () {
-    return $scope.loggedIn ? '#/' : 'http://www.stellar.org';
+    return $scope.loggedIn ? '#/' : 'http://www.payshares.org';
   };
 
   $scope.showTradingLink = function() {

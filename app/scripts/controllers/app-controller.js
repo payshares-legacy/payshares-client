@@ -1,14 +1,14 @@
 'use strict';
 /* jshint camelcase:false */
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 /*
-    When we are connected to the stellard and we have our account info back from the wallet server,
-    Ask the stellard for the account's info
+    When we are connected to the paysharesd and we have our account info back from the wallet server,
+    Ask the paysharesd for the account's info
     waits for:
      walletAddressLoaded
  */
-sc.controller('AppCtrl', function($scope, $rootScope, StellarNetwork, session, $state, $element, $timeout, FlashMessages, ActionLink, Gateways) {
+sc.controller('AppCtrl', function($scope, $rootScope, PaysharesNetwork, session, $state, $element, $timeout, FlashMessages, ActionLink, Gateways) {
     $scope.$on('userLoaded', function () {
         $scope.getSentInvites = function () {
             return session.getUser().getSentInvites().length;
@@ -28,12 +28,12 @@ sc.controller('AppCtrl', function($scope, $rootScope, StellarNetwork, session, $
     var accountObj;
 
     $scope.getLogoLink = function () {
-        return session.get('loggedIn') ? '#/' : 'http://www.stellar.org';
+        return session.get('loggedIn') ? '#/' : 'http://www.payshares.org';
     };
 
 
     $scope.$on('walletAddressLoaded', function() {
-        StellarNetwork.ensureConnection().then(handleAccountLoad);
+        PaysharesNetwork.ensureConnection().then(handleAccountLoad);
     });
 
     if(!session.isPersistent()) {
@@ -48,7 +48,7 @@ sc.controller('AppCtrl', function($scope, $rootScope, StellarNetwork, session, $
     }
 
     function handleAccountLoad() {
-        var remote = StellarNetwork.remote;
+        var remote = PaysharesNetwork.remote;
         var keys = session.get('signingKeys');
         if(!keys) {
             return;
@@ -102,15 +102,15 @@ sc.controller('AppCtrl', function($scope, $rootScope, StellarNetwork, session, $
         // e.g. OwnerCount, additional convenience fields are lower case, e.g.
         // reserve, max_spend.
         // TODO: get this for real
-        var reserve_base = stellar.Amount.from_json(""+20000000), //Amount.from_json(""+remote._reserve_base),
-            reserve_inc  = stellar.Amount.from_json(""+5000000), //Amount.from_json(""+remote._reserve_inc),
+        var reserve_base = payshares.Amount.from_json(""+20000000), //Amount.from_json(""+remote._reserve_base),
+            reserve_inc  = payshares.Amount.from_json(""+5000000), //Amount.from_json(""+remote._reserve_inc),
             owner_count  = $rootScope.account.OwnerCount || "0";
         $rootScope.account.reserve_base = reserve_base;
         $rootScope.account.reserve = reserve_base.add(reserve_inc.product_human(owner_count));
         $rootScope.account.reserve_to_add_trust = reserve_base.add(reserve_inc.product_human(owner_count+1));
 
         // Maximum amount user can spend
-        var bal = stellar.Amount.from_json(data.Balance);
+        var bal = payshares.Amount.from_json(data.Balance);
         $rootScope.balance=data.Balance;
         $rootScope.reserve=$rootScope.account.reserve;
         $rootScope.account.max_spend = bal.subtract($rootScope.account.reserve);
@@ -121,16 +121,16 @@ sc.controller('AppCtrl', function($scope, $rootScope, StellarNetwork, session, $
 
     function setInflation() {
         /*
-         So the fact that we now round down a users balance has this sort of bad side effect. Basically a user will get their first reward and have 5000 stellars
-         after a few seconds it will suddenly change to 4999 stellars
+         So the fact that we now round down a users balance has this sort of bad side effect. Basically a user will get their first reward and have 5000 paysharess
+         after a few seconds it will suddenly change to 4999 paysharess
          this is because we set the inflation dest of the account for them which takes a fee
 
 
-         so as a fix, don't set the inflation destination if it will cause them to round down an STR. so basically wait till they do a send to set the inflate. this way they don't notice it. I mean right now you set the inflation_dest under certain conditions. just add this floor check as a condition also
+         so as a fix, don't set the inflation destination if it will cause them to round down an XPR. so basically wait till they do a send to set the inflate. this way they don't notice it. I mean right now you set the inflation_dest under certain conditions. just add this floor check as a condition also
 
          you can just check if floor(balance - fee) < floor(balance)
 
-         any amount would be bad and also if they never use the giveaway. if instead their friend sends them 1000 STR or something
+         any amount would be bad and also if they never use the giveaway. if instead their friend sends them 1000 XPR or something
          */
         var account = $scope.account;
 
@@ -142,7 +142,7 @@ sc.controller('AppCtrl', function($scope, $rootScope, StellarNetwork, session, $
     }
 
     $scope.setInflationDest = function(address) {
-        var tx = StellarNetwork.remote.transaction();
+        var tx = PaysharesNetwork.remote.transaction();
         tx.accountSet($scope.account.Account);
         tx.inflationDest(address);
 

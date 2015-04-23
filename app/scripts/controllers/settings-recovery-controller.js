@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('stellarClient').controller('SettingsRecoveryCtrl', function($scope, $state, $http, $q, session, stellarApi, UserPrivateInfo, FlashMessages) {
+angular.module('paysharesClient').controller('SettingsRecoveryCtrl', function($scope, $state, $http, $q, session, paysharesApi, UserPrivateInfo, FlashMessages) {
   var wallet = session.get('wallet');
   var params = {
     username: session.get('username'),
@@ -17,7 +17,7 @@ angular.module('stellarClient').controller('SettingsRecoveryCtrl', function($sco
 
     // We check whether user is in process of changing recovery code. If so,
     // we show a form to finish the process.
-    stellarApi.User.getNewRecoveryCode(params)
+    paysharesApi.User.getNewRecoveryCode(params)
       .then(function(response) {
         if (response.data.status === 'success') {
           $scope.resetting = true;
@@ -70,7 +70,7 @@ angular.module('stellarClient').controller('SettingsRecoveryCtrl', function($sco
     $event.preventDefault();
     $scope.sendingRecoveryCode = true;
 
-    stellarApi.User.changeRecoveryToken(params)
+    paysharesApi.User.changeRecoveryToken(params)
      .success(function(response) {
         if (response.status === 'success') {
           if ($scope.migratedWalletRecovery) {
@@ -120,7 +120,7 @@ angular.module('stellarClient').controller('SettingsRecoveryCtrl', function($sco
         });
       })
       .then(function() {
-        return stellarApi.User.finishChangeRecoveryToken(_.extend(params, {
+        return paysharesApi.User.finishChangeRecoveryToken(_.extend(params, {
           userRecoveryCode: $scope.code
         }));
       })
@@ -169,7 +169,7 @@ angular.module('stellarClient').controller('SettingsRecoveryCtrl', function($sco
   $scope.cancelResetRecovery = function($event) {
     $event.preventDefault();
 
-    stellarApi.User.cancelChangingRecoveryCode(params)
+    paysharesApi.User.cancelChangingRecoveryCode(params)
       .success(function() {
         $scope.resetting = false;
       }).error(function() {
@@ -186,7 +186,7 @@ angular.module('stellarClient').controller('SettingsRecoveryCtrl', function($sco
       updateToken:      wallet.keychainData.updateToken
     };
 
-    stellarApi.User.getServerRecoveryCode(data)
+    paysharesApi.User.getServerRecoveryCode(data)
       .success(function () {
         deferred.resolve();
       })

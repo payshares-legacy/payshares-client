@@ -1,4 +1,4 @@
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.controller('FavoriteTradesCtrl', function($scope, session, CurrencyPairs) {
   $scope.$watch('formData.favorite', useFavoriteCurrencyPair);

@@ -2,7 +2,7 @@
 /* global SigningKeys */
 /* jshint camelcase: false */
 
-angular.module('stellarClient').controller('RegistrationCtrl', function(
+angular.module('paysharesClient').controller('RegistrationCtrl', function(
   $rootScope,
   $scope,
   $state,
@@ -19,7 +19,7 @@ angular.module('stellarClient').controller('RegistrationCtrl', function(
   FlashMessages,
   invites,
   vcRecaptchaService,
-  stellarApi) {
+  paysharesApi) {
 
   // Provide a default value to protect against stale config files.
   Options.MAX_WALLET_ATTEMPTS = Options.MAX_WALLET_ATTEMPTS || 3;
@@ -78,7 +78,7 @@ angular.module('stellarClient').controller('RegistrationCtrl', function(
         $scope.status.usernameAvailable = false;
         return;
       }
-      stellarApi.User.validateUsername($scope.data.username)
+      paysharesApi.User.validateUsername($scope.data.username)
         .success(
         function (response) {
           $scope.status.usernameAvailable = true;
@@ -144,7 +144,7 @@ angular.module('stellarClient').controller('RegistrationCtrl', function(
   };
 
   function checkSecret() {
-    var seed = stellar.Base.decode_check(stellar.Base.VER_SEED, $scope.data.secret);
+    var seed = payshares.Base.decode_check(payshares.Base.VER_SEED, $scope.data.secret);
     return !!seed;
   }
 
@@ -226,7 +226,7 @@ angular.module('stellarClient').controller('RegistrationCtrl', function(
   }
 
   function generateSigningKeys(data) {
-    data.signingKeys = StellarWallet.util.generateKeyPair($scope.data.secret);
+    data.signingKeys = PaysharesWallet.util.generateKeyPair($scope.data.secret);
     return $q.when(data);
   }
 
@@ -306,9 +306,9 @@ angular.module('stellarClient').controller('RegistrationCtrl', function(
 
     var proof = usernameProof(data.signingKeys, data.username);
 
-    StellarWallet.createWallet({
+    PaysharesWallet.createWallet({
       server: Options.WALLET_SERVER+'/v2',
-      username: data.username.toLowerCase()+'@stellar.org',
+      username: data.username.toLowerCase()+'@payshares.org',
       password: data.password,
       publicKey: data.signingKeys.publicKey,
       keychainData: JSON.stringify(keychainData),
@@ -332,7 +332,7 @@ angular.module('stellarClient').controller('RegistrationCtrl', function(
       } else if (e.name === 'ConnectionError') {
         $scope.errors.usernameErrors.push('Connection error. Please try again later.');
       } else {
-        Raven.captureMessage('StellarWallet.createWallet unknown error', {
+        Raven.captureMessage('PaysharesWallet.createWallet unknown error', {
           extra: {
             error: e
           }

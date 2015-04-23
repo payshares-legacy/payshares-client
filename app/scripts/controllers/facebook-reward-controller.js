@@ -1,6 +1,6 @@
 'use strict';
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.controller('FacebookRewardCtrl', function ($rootScope, $scope, $http, $q, $analytics, session, Facebook, Raven) {
 
@@ -18,13 +18,13 @@ sc.controller('FacebookRewardCtrl', function ($rootScope, $scope, $http, $q, $an
   $scope.reward = {
     rewardType: 1,
     status: 'incomplete',
-    innerTitle: 'Receive stellars',
+    innerTitle: 'Receive paysharess',
     getCopy: function() {
       switch ($scope.reward.status) {
         case 'fb_email_unverified':
           return {
             title: 'You connected your Facebook!',
-            subtitle: 'Check the email linked to your facebook account to claim your stellars.'
+            subtitle: 'Check the email linked to your facebook account to claim your paysharess.'
           };
         case 'sent':
           return {
@@ -35,7 +35,7 @@ sc.controller('FacebookRewardCtrl', function ($rootScope, $scope, $http, $q, $an
         case 'reward_queued':
           return {
             title: "You connected your Facebook!",
-            subtitle: "You are on the waiting list! You will get your stellars soon."
+            subtitle: "You are on the waiting list! You will get your paysharess soon."
           };
         case 'sending':
           return {
@@ -58,7 +58,7 @@ sc.controller('FacebookRewardCtrl', function ($rootScope, $scope, $http, $q, $an
           /* falls through */
         default:
           return {
-            title: 'Receive stellars on us!',
+            title: 'Receive paysharess on us!',
             subtitle: getInviteSubtitle()
           };
       }
@@ -78,7 +78,7 @@ sc.controller('FacebookRewardCtrl', function ($rootScope, $scope, $http, $q, $an
           break;
         case 'ineligible':
           $scope.reward.error = {};
-          $scope.reward.error.info = "Our spam detection checks say your Facebook account isn't eligible. If you are a legitimate user, we apologize and are improving our detection algorithms. And we will release new ways to grab stellars soon, so please check back.";
+          $scope.reward.error.info = "Our spam detection checks say your Facebook account isn't eligible. If you are a legitimate user, we apologize and are improving our detection algorithms. And we will release new ways to grab paysharess soon, so please check back.";
           $scope.reward.error.panel = "Sorry, your Facebook account isn't eligible.";
           $scope.reward.error.action = null;
           break;
@@ -156,9 +156,9 @@ sc.controller('FacebookRewardCtrl', function ($rootScope, $scope, $http, $q, $an
   var getInviteSubtitle = function() {
     if ($scope.data) {
       if ($scope.data.inviteCode && !$scope.data.hasClaimedInviteCode) {
-        return "Enter your invite code now to receive stellars!";
+        return "Enter your invite code now to receive paysharess!";
       } else if ($scope.data.inviteCode && $scope.data.hasClaimedInviteCode) {
-        return "Thanks to " + $scope.data.inviterUsername + " you will receive stellars once you connect to Facebook.";
+        return "Thanks to " + $scope.data.inviterUsername + " you will receive paysharess once you connect to Facebook.";
       }
     }
 

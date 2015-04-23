@@ -1,4 +1,4 @@
-var api = angular.module('stellarApi');
+var api = angular.module('paysharesApi');
 
 api.service('http', function($http) {
   var http = {};

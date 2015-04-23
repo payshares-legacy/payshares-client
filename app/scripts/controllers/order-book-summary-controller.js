@@ -1,4 +1,4 @@
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.controller('OrderBookSummaryCtrl', function($scope) {
   $scope.currencyPairName = '';

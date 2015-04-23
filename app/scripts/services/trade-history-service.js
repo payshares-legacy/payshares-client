@@ -1,6 +1,6 @@
 'use strict';
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 /**
  * The TradeHistory provides paginated access to completed trades.
@@ -10,7 +10,7 @@ var sc = angular.module('stellarClient');
  * The TradeHistory object broadcasts a series of events from the rootScope that
  * you can hook into to drive logic in your controllers:
  *
- * - `trade-history:new`: The stellar network has added a transaction affecting
+ * - `trade-history:new`: The payshares network has added a transaction affecting
  * an offer placed by the current account.
  *
  * @namespace TradeHistory
@@ -112,7 +112,7 @@ sc.service('TradeHistory', function($rootScope, TransactionHistory, Trading, ses
     });
 
     var trade = Trading.offer.toFriendlyOffer(offer);
-    trade.date = stellar.utils.toTimestamp(transaction.tx.date);
+    trade.date = payshares.utils.toTimestamp(transaction.tx.date);
 
     return trade;
   }
@@ -132,13 +132,13 @@ sc.service('TradeHistory', function($rootScope, TransactionHistory, Trading, ses
     var address = session.get('address');
     var balanceChanges = getBalanceChanges(transaction, address);
 
-    // Adjust STR for the transaction fee taken.
+    // Adjust XPR for the transaction fee taken.
     var fee = new BigNumber(transaction.tx.Fee).dividedBy(1000000);
-    var stellarBalanceChange = _.find(balanceChanges, {currency: 'STR'});
-    stellarBalanceChange.value = stellarBalanceChange.value.plus(fee);
+    var paysharesBalanceChange = _.find(balanceChanges, {currency: 'XPR'});
+    paysharesBalanceChange.value = paysharesBalanceChange.value.plus(fee);
 
-    if(stellarBalanceChange.value.equals(0)) {
-      balanceChanges = _.reject(balanceChanges, {currency: 'STR'});
+    if(paysharesBalanceChange.value.equals(0)) {
+      balanceChanges = _.reject(balanceChanges, {currency: 'XPR'});
     }
 
     return balanceChanges;
@@ -181,7 +181,7 @@ sc.service('TradeHistory', function($rootScope, TransactionHistory, Trading, ses
 
         switch(node.LedgerEntryType) {
         case 'RippleState':
-          // Handle changes in non-STR currency balance.
+          // Handle changes in non-XPR currency balance.
           var isHighIssuer = node.FinalFields.HighLimit.issuer === address;
           var isLowIssuer  = node.FinalFields.LowLimit.issuer  === address;
 
@@ -200,11 +200,11 @@ sc.service('TradeHistory', function($rootScope, TransactionHistory, Trading, ses
           break;
 
         case 'AccountRoot':
-          // Handle changes in STR balance.
+          // Handle changes in XPR balance.
           if(node.FinalFields && node.FinalFields.Account === address) {
             value = new BigNumber(node.FinalFields.Balance).minus(node.PreviousFields.Balance).dividedBy(1000000);
             balanceChange = {
-              currency: 'STR',
+              currency: 'XPR',
               value: value
             };
             balanceChanges.push(balanceChange);

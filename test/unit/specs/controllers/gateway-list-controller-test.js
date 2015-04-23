@@ -3,7 +3,7 @@
 describe('Controller: GatewayListCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('stellarClient'));
+  beforeEach(module('paysharesClient'));
   
   //load the mocks for services
   beforeEach(module('mockSession'));

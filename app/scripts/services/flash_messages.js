@@ -1,4 +1,4 @@
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.factory('FlashMessages', function($rootScope) {
   var result = {};

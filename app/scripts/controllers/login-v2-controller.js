@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('stellarClient').controller('LoginV2Ctrl', function($scope, $state, $stateParams, $q, singletonPromise, Wallet, session) {
+angular.module('paysharesClient').controller('LoginV2Ctrl', function($scope, $state, $stateParams, $q, singletonPromise, Wallet, session) {
   setTimeout(function() {
     angular.element('#password')[0].focus();
   }, 200);
@@ -56,7 +56,7 @@ angular.module('stellarClient').controller('LoginV2Ctrl', function($scope, $stat
     * We're checking if a `wallet` is affected by a bug fixed in #1113.
     * If it is, we're adding a `changePasswordBug` property to `mainData`
     * to indicate whether we should display a flash message to a user.
-    * @param wallet StellarWallet
+    * @param wallet PaysharesWallet
     */
     function checkIfAffectedByChangePasswordBug(wallet) {
       var bugDeploy   = new Date('2014-11-17'); // Bug introduced
@@ -73,7 +73,7 @@ angular.module('stellarClient').controller('LoginV2Ctrl', function($scope, $stat
     }
 
     // We don't have to run $scope.$apply because it's wrapped in singletonPromise
-    return StellarWallet.getWallet(params)
+    return PaysharesWallet.getWallet(params)
       .tap(function(wallet) {
         if ($scope.rememberMe) {
           session.rememberUser();
@@ -91,15 +91,15 @@ angular.module('stellarClient').controller('LoginV2Ctrl', function($scope, $stat
       .then(function() {
         $state.go('dashboard');
       })
-      .catch(StellarWallet.errors.TotpCodeRequired, function() {
+      .catch(PaysharesWallet.errors.TotpCodeRequired, function() {
         $scope.loginError = "2-Factor-Authentication code is required to login.";
-      }).catch(StellarWallet.errors.ConnectionError, function() {
+      }).catch(PaysharesWallet.errors.ConnectionError, function() {
         $scope.loginError = "Error connecting wallet server. Please try again later.";
       }).catch(function(e) {
         if (e.name && e.name === 'Forbidden') {
           return $q.reject(e);
         }
-        Raven.captureMessage('StellarWallet.getWallet unknown error', {
+        Raven.captureMessage('PaysharesWallet.getWallet unknown error', {
           extra: {
             error: e
           }

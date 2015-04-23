@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('stellarClient').controller('RecoveryV2Ctrl', function($scope, $state, $q, $http, singletonPromise, debounce) {
+angular.module('paysharesClient').controller('RecoveryV2Ctrl', function($scope, $state, $q, $http, singletonPromise, debounce) {
   $scope.username = null;
   $scope.totpRequired = false;
   $scope.recoveryCode = null;
@@ -15,7 +15,7 @@ angular.module('stellarClient').controller('RecoveryV2Ctrl', function($scope, $s
     }
 
     $scope.usernameClass = 'glyphicon-refresh spin';
-    var username = $scope.username + '@stellar.org';
+    var username = $scope.username + '@payshares.org';
 
     $http.post(Options.WALLET_SERVER + '/v2/wallets/show_login_params', {
       username: username
@@ -109,7 +109,7 @@ angular.module('stellarClient').controller('RecoveryV2Ctrl', function($scope, $s
     var deferred = $q.defer();
 
     // Append domain
-    params.username += '@stellar.org';
+    params.username += '@payshares.org';
 
     var userPartBytes = bs58.decode(params.recoveryCode);
     var serverPartBytes = bs58.decode(params.serverRecoveryCode);
@@ -126,18 +126,18 @@ angular.module('stellarClient').controller('RecoveryV2Ctrl', function($scope, $s
       data.totpCode = $scope.totpCode;
     }
 
-    StellarWallet.recover(data).then(function(masterKey) {
+    PaysharesWallet.recover(data).then(function(masterKey) {
       params.masterKey = masterKey;
       params.recoveryCode = fullRecoveryCode;
       deferred.resolve(params);
-    }).catch(StellarWallet.errors.Forbidden, function() {
+    }).catch(PaysharesWallet.errors.Forbidden, function() {
       $scope.usernameError = "Invalid username or recovery code.";
       deferred.reject();
-    }).catch(StellarWallet.errors.ConnectionError, function() {
+    }).catch(PaysharesWallet.errors.ConnectionError, function() {
       $scope.usernameError = "Error connecting wallet server. Please try again later.";
       deferred.reject();
     }).catch(function(e) {
-      Raven.captureMessage('StellarWallet.recover unknown error', {
+      Raven.captureMessage('PaysharesWallet.recover unknown error', {
         extra: {
           error: e
         }

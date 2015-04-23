@@ -6,7 +6,7 @@ var STELLAR_CLIENT_REVISION = '_GIT_REVISION_GOES_HERE_';
 console.log("%cStop!", "color:white; background:red; font-size: 16pt");
 console.log("%cThis is browser feature intended for developers. If someone told you to copy-paste something here, it is a scam and will give them access to your money!", "font-size: 14pt");
 
-var stellarClient = angular.module('stellarClient', [
+var paysharesClient = angular.module('paysharesClient', [
   'angularMoment',
   'bruteRequest',
   'facebook',
@@ -24,7 +24,7 @@ var stellarClient = angular.module('stellarClient', [
   'ja.qr',
   'angulartics',
   'angulartics.segment.io',
-  'stellarApi'
+  'paysharesApi'
 ]);
 
 /**
@@ -38,7 +38,7 @@ window.$get = function (dependency) {
   return angular.element(document).injector().get(dependency);
 };
 
-stellarClient.config(function($httpProvider, $stateProvider, $urlRouterProvider, RavenProvider, ngClipProvider, FacebookProvider) {
+paysharesClient.config(function($httpProvider, $stateProvider, $urlRouterProvider, RavenProvider, ngClipProvider, FacebookProvider) {
 
   FacebookProvider.init(Options.APP_ID);
 
@@ -149,7 +149,7 @@ stellarClient.config(function($httpProvider, $stateProvider, $urlRouterProvider,
 
 });
 
-stellarClient.run(function($location, $state, ipCookie){
+paysharesClient.run(function($location, $state, ipCookie){
   var atRoot    = _.isEmpty($location.path());
   var firstTime = !ipCookie("weve_been_here_before");
   var forceToRegister = atRoot && firstTime;
@@ -160,7 +160,7 @@ stellarClient.run(function($location, $state, ipCookie){
     }
 });
 
-stellarClient.run(function($rootScope, $timeout, StellarNetwork, ActionLink){
+paysharesClient.run(function($rootScope, $timeout, PaysharesNetwork, ActionLink){
   ActionLink.recognize();
 
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
@@ -169,7 +169,7 @@ stellarClient.run(function($rootScope, $timeout, StellarNetwork, ActionLink){
 
   $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
     if(toState.authenticate) {
-      StellarNetwork.ensureConnection().then(function() {
+      PaysharesNetwork.ensureConnection().then(function() {
         // HACK: Timeout required to allow templates' controllers initialize and start listening.
         $timeout(ActionLink.process, 0);
       });
@@ -177,7 +177,7 @@ stellarClient.run(function($rootScope, $timeout, StellarNetwork, ActionLink){
   });
 });
 
-stellarClient.run(function($rootScope, $state, $timeout, ipCookie, session, FlashMessages){
+paysharesClient.run(function($rootScope, $state, $timeout, ipCookie, session, FlashMessages){
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
 
     if(toState.name === 'logout' && session.get('loggedIn')) {
@@ -220,14 +220,14 @@ stellarClient.run(function($rootScope, $state, $timeout, ipCookie, session, Flas
   });
 });
 
-stellarClient.config(function() {
+paysharesClient.config(function() {
   // Configure BigNumber to never return exponential notation
   BigNumber.config({ EXPONENTIAL_AT : 1e+9 });
 });
 
 
 // Analytics
-stellarClient.config(function ($analyticsProvider) {
+paysharesClient.config(function ($analyticsProvider) {
   $analyticsProvider.virtualPageviews(true);
   $analyticsProvider.firstPageview(true);
 });

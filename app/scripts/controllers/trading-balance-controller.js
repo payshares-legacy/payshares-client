@@ -1,6 +1,6 @@
 'use strict';
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.controller('TradingBalanceCtrl', function($scope, $q, Balances, singletonPromise) {
   $scope.baseBalance = null;

@@ -1,23 +1,23 @@
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 /**
  * Low-level, stateless trading operations service that other portions
  * of the trading components can depend upon for interacting with the
- * stellar network
+ * payshares network
  *
  * @namespace TradingOps
  * 
  */
-sc.service('TradingOps', function(session, StellarNetwork, TransactionCurator) {
+sc.service('TradingOps', function(session, PaysharesNetwork, TransactionCurator) {
 
   this.createOffer = function(takerPays, takerGets) {
-    var tx = StellarNetwork.remote.transaction();
+    var tx = PaysharesNetwork.remote.transaction();
     tx.offerCreate({
       "account":    session.get("address"),
-      "taker_pays": StellarNetwork.amount.encode(takerPays),
-      "taker_gets": StellarNetwork.amount.encode(takerGets),
+      "taker_pays": PaysharesNetwork.amount.encode(takerPays),
+      "taker_gets": PaysharesNetwork.amount.encode(takerGets),
     });
 
-    return StellarNetwork.sendTransaction(tx).then(function (tx) {
+    return PaysharesNetwork.sendTransaction(tx).then(function (tx) {
       return {
         result: TransactionCurator.offerStateFromOfferCreate(tx),
         offer: TransactionCurator.offerFromOfferCreate(tx)
@@ -28,7 +28,7 @@ sc.service('TradingOps', function(session, StellarNetwork, TransactionCurator) {
   this.myOffers = function() {
     var account = session.get("address");
 
-    return StellarNetwork.request("account_offers", {
+    return PaysharesNetwork.request("account_offers", {
       account: account
     }).then(function(response) {
         var normalizedOffers = response.offers.map(function (nativeOffer) {
@@ -36,8 +36,8 @@ sc.service('TradingOps', function(session, StellarNetwork, TransactionCurator) {
           return {
             account:   account,
             sequence:  nativeOffer.seq,
-            takerPays: StellarNetwork.amount.decode(nativeOffer.taker_pays),
-            takerGets: StellarNetwork.amount.decode(nativeOffer.taker_gets),
+            takerPays: PaysharesNetwork.amount.decode(nativeOffer.taker_pays),
+            takerGets: PaysharesNetwork.amount.decode(nativeOffer.taker_gets),
           };
         });
 
@@ -47,13 +47,13 @@ sc.service('TradingOps', function(session, StellarNetwork, TransactionCurator) {
 
 
   this.cancelOffer = function(sequence) {
-    var tx = StellarNetwork.remote.transaction();
+    var tx = PaysharesNetwork.remote.transaction();
 
     tx.offerCancel({
       "account":  session.get("address"),
       "sequence": sequence,
     });
 
-    return StellarNetwork.sendTransaction(tx);
+    return PaysharesNetwork.sendTransaction(tx);
   };
 });

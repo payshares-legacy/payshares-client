@@ -1,4 +1,4 @@
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.controller('TradeHistoryCtrl', function($scope, TradeHistory, singletonPromise) {
   $scope.$on('trade-history:new', updateTradePage);

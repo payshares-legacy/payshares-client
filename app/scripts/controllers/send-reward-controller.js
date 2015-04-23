@@ -3,27 +3,27 @@
 /* jshint camelcase:false */
 /* global JsonRewriter */
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
-sc.controller('SendRewardCtrl', function ($rootScope, $scope, $http, StellarNetwork, session, TutorialHelper) {
+sc.controller('SendRewardCtrl', function ($rootScope, $scope, $http, PaysharesNetwork, session, TutorialHelper) {
   $scope.reward = {
     rewardType: 3,
     status: 'incomplete',
-    innerTitle: 'Learn to send stellars',
+    innerTitle: 'Learn to send paysharess',
     getCopy: function() {
       switch ($scope.reward.status) {
       case 'needs_fbauth':
       case 'sending':
       case 'sent':
-        // User needs to fb auth before they can get their stellars (when they're done, still show this message)
+        // User needs to fb auth before they can get their paysharess (when they're done, still show this message)
         return {
           title: 'Sent!',
-          subtitle: 'Log in with Facebook to receive stellars'
+          subtitle: 'Log in with Facebook to receive paysharess'
         };
 
       default:
         return {
-          title: 'Send stellars!',
+          title: 'Send paysharess!',
           subtitle: 'Learn to send'
         };
       }
@@ -38,7 +38,7 @@ sc.controller('SendRewardCtrl', function ($rootScope, $scope, $http, StellarNetw
   // add this reward to the parent scope's reward array
   $scope.rewards[$scope.reward.rewardType] = $scope.reward;
 
-  $scope.reward.template = 'templates/send-stellar.html';
+  $scope.reward.template = 'templates/send-payshares.html';
 
   $scope.sendTutorial = function() {
     TutorialHelper.set('dashboard', 'send-tutorial');
@@ -58,7 +58,7 @@ sc.controller('SendRewardCtrl', function ($rootScope, $scope, $http, StellarNetw
   function setupSentTxListener() {
     turnOffTxListener = $scope.$on('payment-history:new', function (event, tx) {
       if (validateTransaction(tx)) {
-        requestSentStellarsReward();
+        requestSentPaysharessReward();
       }
     });
   }
@@ -72,7 +72,7 @@ sc.controller('SendRewardCtrl', function ($rootScope, $scope, $http, StellarNetw
 
   // checks if the user has any "sent" transactions, requests send reward if so
   function checkSentTransactions() {
-    var remote = StellarNetwork.remote;
+    var remote = PaysharesNetwork.remote;
     var account = session.get('address');
     var params = {
       'account': account,
@@ -94,7 +94,7 @@ sc.controller('SendRewardCtrl', function ($rootScope, $scope, $http, StellarNetw
             var transaction = processedTxn.transaction;
 
             if (validateTransaction(transaction)) {
-              requestSentStellarsReward();
+              requestSentPaysharessReward();
               sendRewardRequested = true;
               break;
             }
@@ -109,10 +109,10 @@ sc.controller('SendRewardCtrl', function ($rootScope, $scope, $http, StellarNetw
       .request();
   }
 
-  function requestSentStellarsReward() {
+  function requestSentPaysharessReward() {
     var data = {username: session.get('username')};
 
-    return $http.post(Options.API_SERVER + "/claim/sendStellars", data)
+    return $http.post(Options.API_SERVER + "/claim/sendPaysharess", data)
       .success(function (response) {
         $scope.reward.status = response.message;
       });

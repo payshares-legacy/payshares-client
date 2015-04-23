@@ -1,12 +1,12 @@
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
-sc.service('Gateways', function($q, $analytics, session, StellarNetwork, rpStellarTxt) {
+sc.service('Gateways', function($q, $analytics, session, PaysharesNetwork, rpPaysharesTxt) {
 
   /** @namespace */
   var Gateways = {};
 
   Gateways.search = function(domain) {
-    return rpStellarTxt.get(domain)
+    return rpPaysharesTxt.get(domain)
       .then(function(sections) {
           var currencies = _.map(sections.currencies, function(currency) {
             var parts = currency.split(/\s+/, 2);
@@ -134,7 +134,7 @@ sc.service('Gateways', function($q, $analytics, session, StellarNetwork, rpStell
     var deferred = $q.defer();
     var limit    = _.extend({value: value}, currency);
 
-    var tx = StellarNetwork.remote.transaction();
+    var tx = PaysharesNetwork.remote.transaction();
     tx.trustSet(session.get('address'), limit);
 
     if (value === '0') {
@@ -168,9 +168,9 @@ sc.service('Gateways', function($q, $analytics, session, StellarNetwork, rpStell
     var deferred = $q.defer();
 
     var opts = {account: currency.issuer};
-    StellarNetwork.remote.request_account_info(opts, function(err, result) {
+    PaysharesNetwork.remote.request_account_info(opts, function(err, result) {
       if (result) {
-        currency.requireAuth = !!(result.account_data.Flags & stellar.Transaction.flags.AccountSet.RequireAuth);
+        currency.requireAuth = !!(result.account_data.Flags & payshares.Transaction.flags.AccountSet.RequireAuth);
       }
 
       deferred.resolve(currency);

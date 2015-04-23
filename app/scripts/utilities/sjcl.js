@@ -1,2 +1,2 @@
 /* exported sjcl */
-window.sjcl = stellar.sjcl;
+window.sjcl = payshares.sjcl;

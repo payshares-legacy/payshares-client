@@ -1,4 +1,4 @@
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.controller('TaskMessageCtrl', function ($rootScope, $scope, $state, $filter, $analytics, session) {
     $scope.getInvitesLeft = function () {
@@ -11,10 +11,10 @@ sc.controller('TaskMessageCtrl', function ($rootScope, $scope, $state, $filter, 
                 return "Your friend sent you an invite code.";
             },
             getSubtext: function () {
-                return "Get your bonus stellars now!";
+                return "Get your bonus paysharess now!";
             },
             getButtonText: function () {
-                return "Claim stellars";
+                return "Claim paysharess";
             },
             action: function () {
                 $rootScope.$broadcast('openFacebookReward');

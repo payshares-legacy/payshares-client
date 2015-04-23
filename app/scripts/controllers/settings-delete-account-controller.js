@@ -2,9 +2,9 @@
 
 /* jshint camelcase:false */
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
-sc.controller('DeleteAccountCtrl', function($scope, $rootScope, $q, StellarNetwork, stellarApi, session, singletonPromise, contacts, Gateways) {
+sc.controller('DeleteAccountCtrl', function($scope, $rootScope, $q, PaysharesNetwork, paysharesApi, session, singletonPromise, contacts, Gateways) {
   $scope.reset = function () {
     $scope.transferDestination = '';
     $scope.state = 'closed';
@@ -37,7 +37,7 @@ sc.controller('DeleteAccountCtrl', function($scope, $rootScope, $q, StellarNetwo
   });
 
   function getAddress(input) {
-    if(stellar.UInt160.is_valid(input)) {
+    if(payshares.UInt160.is_valid(input)) {
       // The input is an address.
       return $q.when(input);
     } else {
@@ -59,10 +59,10 @@ sc.controller('DeleteAccountCtrl', function($scope, $rootScope, $q, StellarNetwo
 
     return getAddress($scope.transferDestination)
       .then(function(destinationAddress) {
-        var tx = StellarNetwork.remote.transaction();
+        var tx = PaysharesNetwork.remote.transaction();
         tx.accountMerge($scope.account.Account, destinationAddress);
 
-        var promise = StellarNetwork.sendTransaction(tx);
+        var promise = PaysharesNetwork.sendTransaction(tx);
 
         return promise.catch(function(err) {
           return $q.reject(err.engine_result_message);
@@ -73,7 +73,7 @@ sc.controller('DeleteAccountCtrl', function($scope, $rootScope, $q, StellarNetwo
   function deleteUser() {
     var wallet = session.get('wallet');
 
-    return stellarApi.User.delete({
+    return paysharesApi.User.delete({
       username:    session.get('username'),
       updateToken: wallet.keychainData.updateToken
     })

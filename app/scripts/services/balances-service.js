@@ -1,8 +1,8 @@
 'use strict';
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
-sc.service('Balances', function($rootScope, $q, StellarNetwork, session) {
+sc.service('Balances', function($rootScope, $q, PaysharesNetwork, session) {
 
   var self = this,
       balances = null;
@@ -10,7 +10,7 @@ sc.service('Balances', function($rootScope, $q, StellarNetwork, session) {
   // TODO: Find a way to fetch the balances once a user logs on. userLoaded and walletAddressLoaded aren't working fast enough
 
   // Broadcasts a clone of the whole balances on every new transaction
-  $rootScope.$on('stellar-network:transaction', function(event, message) {
+  $rootScope.$on('payshares-network:transaction', function(event, message) {
       self.fetchBalances()
         .then(function(newBalances) {
           $rootScope.$broadcast('balances:update', newBalances);
@@ -18,23 +18,23 @@ sc.service('Balances', function($rootScope, $q, StellarNetwork, session) {
   });
 
   /**
-   * Fetches a copy of the all the user's balances (STR and credits).
-   * It is guaranteed that STR will be present in the list of balances.
+   * Fetches a copy of the all the user's balances (XPR and credits).
+   * It is guaranteed that XPR will be present in the list of balances.
    * Use this if you want to force fetch the balances. If not, use ensureBalancesLoaded
    * 
    * @return {Promise} A promise that resolves to a clone of an unsorted array 
    *         of amount struct that represents the current user's balances.
    */
   this.fetchBalances = function() {
-    var accountLines = StellarNetwork.request('account_lines', { 'account': session.get('address') });
-    var accountInfo = StellarNetwork.request('account_info', { 'account': session.get('address') });
+    var accountLines = PaysharesNetwork.request('account_lines', { 'account': session.get('address') });
+    var accountInfo = PaysharesNetwork.request('account_info', { 'account': session.get('address') });
     return $q.all([accountLines, accountInfo])
       .then(function(results) {
         /*jshint camelcase: false */
-        var creditBalances = _.map(results[0].lines, StellarNetwork.amount.decodeFromAccountLine);
-        var STRBalance = StellarNetwork.amount.decode(results[1].account_data.Balance);
+        var creditBalances = _.map(results[0].lines, PaysharesNetwork.amount.decodeFromAccountLine);
+        var XPRBalance = PaysharesNetwork.amount.decode(results[1].account_data.Balance);
 
-        var newBalances = new Array(STRBalance).concat(creditBalances);
+        var newBalances = new Array(XPRBalance).concat(creditBalances);
         balances = newBalances;
         return _.cloneDeep(newBalances);
       });
@@ -58,7 +58,7 @@ sc.service('Balances', function($rootScope, $q, StellarNetwork, session) {
 
   /**
    * Gets the balance of an currency item. Either takes in an amount struct or 
-   * a pair of currency (string) and issuer string (optional if currency is STR)
+   * a pair of currency (string) and issuer string (optional if currency is XPR)
    *
    * Returns an amount with value of 0 if it couldn't find the currency from 
    * the balances.
@@ -84,7 +84,7 @@ sc.service('Balances', function($rootScope, $q, StellarNetwork, session) {
   function isValidCurrency(currency) {
     var isObject    = typeof currency === 'object';
     var hasCurrency = 'currency' in currency;
-    var hasIssuer   = currency.currency === 'STR' || ('issuer' in currency);
+    var hasIssuer   = currency.currency === 'XPR' || ('issuer' in currency);
 
     if (isObject && hasCurrency && hasIssuer) {
       return true;
@@ -95,12 +95,12 @@ sc.service('Balances', function($rootScope, $q, StellarNetwork, session) {
 
   function hasValidIssuer(currency) {
     /*jshint camelcase: false */
-    var isStellar      = currency.currency === 'STR';
-    var isValidAddress = stellar.UInt160.is_valid(currency.issuer);
+    var isPayshares      = currency.currency === 'XPR';
+    var isValidAddress = payshares.UInt160.is_valid(currency.issuer);
 
-    if(isStellar && currency.issuer) {
+    if(isPayshares && currency.issuer) {
       return false;
-    } else if(!isStellar && !isValidAddress) {
+    } else if(!isPayshares && !isValidAddress) {
       return false;
     } else {
       return true;

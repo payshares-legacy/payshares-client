@@ -1,4 +1,4 @@
-angular.module('stellarClient').factory('UserPrivateInfo', function($http, $q, $filter, Wallet) {
+angular.module('paysharesClient').factory('UserPrivateInfo', function($http, $q, $filter, Wallet) {
     var SHOW_ENDPOINT = Options.API_SERVER + "/users/show";
 
     var UserPrivateInfo = function (username, updateToken, data) {

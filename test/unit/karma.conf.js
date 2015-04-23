@@ -45,23 +45,23 @@ module.exports = function(config) {
     "app/bower_components/ng-clip/src/ngClip.js",
     "app/bower_components/bignumber.js/bignumber.js",
     "app/bower_components/angular-recaptcha/release/angular-recaptcha.js",
-    "app/bower_components/stellar-wallet-js-sdk/build/stellar-wallet.min.js",
+    "app/bower_components/payshares-wallet-js-sdk/build/payshares-wallet.min.js",
     "app/bower_components/tweetnacl/nacl-fast.min.js",
     "app/bower_components/angulartics/src/angulartics.js",
     "app/bower_components/angulartics/src/angulartics-segmentio.js",
     "app/bower_components/URIjs/src/URI.js",
     'app/bower_components/angular-mocks/angular-mocks.js',
-    'app/bower_components/stellar-lib/build/stellar-lib.js',
+    'app/bower_components/payshares-lib/build/payshares-lib.js',
     
     
     //app
-    'app/scripts/modules/stellar-api/stellar-api.js',
+    'app/scripts/modules/payshares-api/payshares-api.js',
     'app/scripts/**/*.js',
     
     //test-only mocks
     'test/unit/mocks/gateway-mocks.js',
     'test/unit/mocks/session-mocks.js',
-    'test/unit/mocks/stellar-network-mocks.js',
+    'test/unit/mocks/payshares-network-mocks.js',
    
     //specs
     'test/unit/specs/controllers/add-email-controller-test.js',

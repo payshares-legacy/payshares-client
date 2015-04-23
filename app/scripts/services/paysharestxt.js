@@ -1,17 +1,17 @@
 /**
  *
- * The stellar.txt service looks up and caches stellar.txt files.
+ * The payshares.txt service looks up and caches payshares.txt files.
  *
  * These files are used to do DNS-based verifications autonomously on the
  * client-side. Quite neat when you think about it and a decent solution until
  * we have a network-internal nickname system.
  * 
- * @namespace rpStellarTxt
+ * @namespace rpPaysharesTxt
  */
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
-sc.factory('rpStellarTxt', ['$q', '$rootScope',
+sc.factory('rpPaysharesTxt', ['$q', '$rootScope',
     function ($q, $scope) {
         var txts = {};
 
@@ -25,13 +25,13 @@ sc.factory('rpStellarTxt', ['$q', '$rootScope',
 
                 // TODO: change these back to https
                 var urls = [
-                        'https://www.'+domain+'/stellar.txt',
-                        'https://'+domain+'/stellar.txt',
-                        'https://stellar.'+domain+'/stellar.txt'
+                        'https://www.'+domain+'/payshares.txt',
+                        'https://'+domain+'/payshares.txt',
+                        'https://payshares.'+domain+'/payshares.txt'
                 ];
                 var next = function (xhr, status) {
                     if (!urls.length) {
-                        txtPromise.reject(new Error("No stellar.txt found"));
+                        txtPromise.reject(new Error("No payshares.txt found"));
                         return;
                     }
                     var url = urls.pop();

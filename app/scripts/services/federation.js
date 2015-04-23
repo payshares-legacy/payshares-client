@@ -11,9 +11,9 @@
 
 /*jshint camelcase: false */
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
-sc.factory('rpFederation', ['$q', '$rootScope', '$http', 'rpStellarTxt', function ($q, $scope, $http, $txt) {
+sc.factory('rpFederation', ['$q', '$rootScope', '$http', 'rpPaysharesTxt', function ($q, $scope, $http, $txt) {
 
     function checkEmail(email) {
         if (email.indexOf('@') === -1) {
@@ -41,8 +41,8 @@ sc.factory('rpFederation', ['$q', '$rootScope', '$http', 'rpStellarTxt', functio
         function handleNoTxt() {
             federationPromise.reject({
                 result: "error",
-                error: "noStellarTxt",
-                error_message: "Stellar.txt not available for the requested domain."
+                error: "noPaysharesTxt",
+                error_message: "Payshares.txt not available for the requested domain."
             });
         }
 

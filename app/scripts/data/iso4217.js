@@ -5,7 +5,7 @@
  */
 window.iso4217 = {
     // Ripple Credits
-    "STR":[0, 0],
+    "XPR":[0, 0],
 
     // Official ISO-4217
     "AFN":[971, 2],

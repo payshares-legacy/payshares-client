@@ -3,7 +3,7 @@
 describe('Controller: AddGatewayCtrl, mocking out Gateways.search', function () {
 
   // load the controller's module
-  beforeEach(module('stellarClient'));
+  beforeEach(module('paysharesClient'));
   
   //load the mocks for services
   beforeEach(module('mockSession'));
@@ -65,11 +65,11 @@ describe('Controller: AddGatewayCtrl, mocking out Gateways.search', function () 
 describe('Controller: AddGatewayCtrl, without mocking out Gateways', function () {
 
   // load the controller's module
-  beforeEach(module('stellarClient'));
+  beforeEach(module('paysharesClient'));
   
   //load the mocks for services
   beforeEach(module('mockSession'));
-  beforeEach(module('mockStellarNetwork'));
+  beforeEach(module('mockPaysharesNetwork'));
 
   var AddGatewayCtrl, scope, rootScope, inner_session;
 

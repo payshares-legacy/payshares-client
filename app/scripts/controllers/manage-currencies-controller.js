@@ -1,6 +1,6 @@
 'use strict';
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.controller('ManageCurrenciesCtrl', function($rootScope, $scope, session) {
   var mainData             = session.get('wallet').mainData;

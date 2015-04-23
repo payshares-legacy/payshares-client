@@ -6,8 +6,8 @@
                 <div class="dash-balance-container col-sm-6 col-sm-push-3">
                     <div class="single-balance-container" ng-hide="currencies.length">
                         <div ng-show="$root.accountStatus == 'loaded'">
-                            <span class="dash-balance" rp-tooltip="{{$root.balance  | rpamount}}  (minimum balance: {{ $root.reserve | rpamount }} STR)" ng-bind-html="$root.balance | rpamount:{rel_precision: 0} | shrinkText:84:6"></span>
-                            <div class="dash-balance-info">Current Balance <b>Stellars</b></div>
+                            <span class="dash-balance" rp-tooltip="{{$root.balance  | rpamount}}  (minimum balance: {{ $root.reserve | rpamount }} XPR)" ng-bind-html="$root.balance | rpamount:{rel_precision: 0} | shrinkText:84:6"></span>
+                            <div class="dash-balance-info">Current Balance <b>Paysharess</b></div>
                             <div class="dash-links">
                                 <a class="manage-currency-link" ng-click="openManageCurrencies();" href="">
                                     <i class="glyphicon glyphicon-th-list"></i>
@@ -20,7 +20,7 @@
                     </div>
                     <div class="multi-balance-container" ng-show="currencies.length">
                         <div class="dash-currency-line row">
-                            <div class="currency-unit col-xs-6">{{ 'STR' | currencyName }}</div>
+                            <div class="currency-unit col-xs-6">{{ 'XPR' | currencyName }}</div>
                             <div class="currency-balance col-xs-6">{{ $root.balance | rpamount:{rel_precision: 0} }}</div>
                         </div>
                         <div ng-repeat="currency in topCurrencies" class="dash-currency-line row">

@@ -2,7 +2,7 @@
 
 /* global JsonRewriter */
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 /**
  * The PaymentHistory provides paginated access to payment transactions.
@@ -12,7 +12,7 @@ var sc = angular.module('stellarClient');
  * The PaymentHistory object broadcasts a series of events from the rootScope that
  * you can hook into to drive logic in your controllers:
  *
- * - `payment-history:new`: The stellar network has added a payment transaction affecting
+ * - `payment-history:new`: The payshares network has added a payment transaction affecting
  * the current account to a ledger.
  *
  * @namespace PaymentHistory

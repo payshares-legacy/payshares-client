@@ -1,4 +1,4 @@
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 /**
  * To show flash messages broadcast a "flashMassage" event with an object

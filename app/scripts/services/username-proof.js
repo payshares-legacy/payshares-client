@@ -1,4 +1,4 @@
-angular.module('stellarClient').factory('usernameProof', function () {
+angular.module('paysharesClient').factory('usernameProof', function () {
   return function(signingKeys, username) {
     var claim = JSON.stringify({
       username: username,

@@ -1,11 +1,11 @@
 'use strict';
 /* global loadSiftScript */
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 var cache = {};
 
-sc.service('session', function($rootScope, $http, $timeout, $analytics, $q, StellarNetwork, Wallet, contacts, UserPrivateInfo, Raven) {
+sc.service('session', function($rootScope, $http, $timeout, $analytics, $q, PaysharesNetwork, Wallet, contacts, UserPrivateInfo, Raven) {
   var Session = function() {
     this.waitingForUserInfo = $q.defer();
   };
@@ -102,7 +102,7 @@ sc.service('session', function($rootScope, $http, $timeout, $analytics, $q, Stel
     checkFairyAddress.bind(this)();
     $rootScope.account = {};
     $rootScope.$broadcast('walletAddressLoaded', {account: signingKeys.address, secret: signingKeys.secret});
-    StellarNetwork.ensureConnection();
+    PaysharesNetwork.ensureConnection();
 
     // Set loggedIn to be true to signify that it is safe to use the session variables.
     this.put('loggedIn', true);
@@ -164,7 +164,7 @@ sc.service('session', function($rootScope, $http, $timeout, $analytics, $q, Stel
     } else {
       cache = {};
       delete $rootScope.account;
-      StellarNetwork.shutdown();
+      PaysharesNetwork.shutdown();
       this.clearIdleTimeout();
     }
   };

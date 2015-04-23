@@ -1,6 +1,6 @@
 'use strict';
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.controller('ChangePasswordCtrl', function($scope, $state, $timeout, $http, session, debounce, Wallet, FlashMessages) {
   $scope.data = {

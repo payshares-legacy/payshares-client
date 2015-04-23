@@ -2,9 +2,9 @@
 /* jshint camelcase: false */
 /* global Amount */
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
-sc.service('Payment', function($rootScope, $q, StellarNetwork, Destination, CancelablePromise) {
+sc.service('Payment', function($rootScope, $q, PaysharesNetwork, Destination, CancelablePromise) {
 
   // @namespace Payment
   var Payment = {};
@@ -15,7 +15,7 @@ sc.service('Payment', function($rootScope, $q, StellarNetwork, Destination, Canc
   // @type {Amount}
   var amount;
 
-  // @type {stellar.Subscription}
+  // @type {payshares.Subscription}
   var pathSubscription;
 
   // @type {CancelablePromise}
@@ -105,7 +105,7 @@ sc.service('Payment', function($rootScope, $q, StellarNetwork, Destination, Canc
     clearPaths();
 
     var amountString = Number(value || 0.0).toFixed(16) + ' ' + currency;
-    amount = new stellar.Amount.from_human(amountString);
+    amount = new payshares.Amount.from_human(amountString);
 
     updatePaths();
 
@@ -129,7 +129,7 @@ sc.service('Payment', function($rootScope, $q, StellarNetwork, Destination, Canc
    */
   function clearPaths() {
     if(pathSubscription) {
-      pathSubscription.closed = true; // TODO: Move to stellar-lib
+      pathSubscription.closed = true; // TODO: Move to payshares-lib
 
       pathSubscription.close();
       pathSubscription = null;
@@ -166,7 +166,7 @@ sc.service('Payment', function($rootScope, $q, StellarNetwork, Destination, Canc
     }
 
     // Subscribe to path updates.
-    pathSubscription = StellarNetwork.remote.path_find(
+    pathSubscription = PaysharesNetwork.remote.path_find(
       $rootScope.account.Account,
       destination.address,
       amount
@@ -174,7 +174,7 @@ sc.service('Payment', function($rootScope, $q, StellarNetwork, Destination, Canc
 
     // Broadcast path updates.
     pathSubscription.on('update', function(result) {
-      if(this.closed) { return; } // TODO: Move to stellar-lib
+      if(this.closed) { return; } // TODO: Move to payshares-lib
 
       var paths = processPaths(result.alternatives || []);
       $rootScope.$apply(broadcastPaths.call(null, paths));
@@ -182,12 +182,12 @@ sc.service('Payment', function($rootScope, $q, StellarNetwork, Destination, Canc
 
     // Handle path errors.
     pathSubscription.on('error', function(result) {
-      if(this.closed) { return; } // TODO: Move to stellar-lib
+      if(this.closed) { return; } // TODO: Move to payshares-lib
 
       $rootScope.$broadcast('payment:paths-error');
     });
 
-    // If there is a native STR path broadcast it immediately.
+    // If there is a native XPR path broadcast it immediately.
     var initialPaths = processPaths([]);
     if(_.any(initialPaths)) {
       broadcastPaths(initialPaths);
@@ -221,7 +221,7 @@ sc.service('Payment', function($rootScope, $q, StellarNetwork, Destination, Canc
 
   /**
    * Process an array of "raw" transaction paths.
-   * Add a native STR path if valid.
+   * Add a native XPR path if valid.
    *
    * @param {Array.<Object>} rawPaths
    *
@@ -230,7 +230,7 @@ sc.service('Payment', function($rootScope, $q, StellarNetwork, Destination, Canc
   function processPaths(rawPaths) {
     var paths = _.map(rawPaths, processPath);
 
-    // Check if we're trying to send more stellars than we have.
+    // Check if we're trying to send more paysharess than we have.
     var overspend = amount.is_native() &&
       $rootScope.account.max_spend &&
       $rootScope.account.max_spend.to_number() > 1 &&

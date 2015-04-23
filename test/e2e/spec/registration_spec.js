@@ -1,5 +1,5 @@
 // registration_spec.js
-var stellarApiMock = require('../../stellar-api-mock');
+var paysharesApiMock = require('../../payshares-api-mock');
 
 describe('registration page', function() {
   var ptor;
@@ -8,7 +8,7 @@ describe('registration page', function() {
     browser.get('/#/register');
     ptor = protractor.getInstance();
 
-    browser.addMockModule('stellarApi', stellarApiMock.setup);
+    browser.addMockModule('paysharesApi', paysharesApiMock.setup);
   });
 
   it('should show username and password missing error message', function() {

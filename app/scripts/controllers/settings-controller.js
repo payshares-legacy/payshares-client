@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('stellarClient').controller('SettingsCtrl', function($scope, $http, $state, $stateParams, $analytics, session, FlashMessages) {
+angular.module('paysharesClient').controller('SettingsCtrl', function($scope, $http, $state, $stateParams, $analytics, session, FlashMessages) {
   if ($stateParams['migrated-wallet-recovery']) {
     $scope.migratedWalletRecovery = true;
     FlashMessages.add({

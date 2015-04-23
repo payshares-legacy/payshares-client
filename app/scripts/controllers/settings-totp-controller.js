@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('stellarClient').controller('SettingsTotpCtrl', function($scope, session) {
+angular.module('paysharesClient').controller('SettingsTotpCtrl', function($scope, session) {
   var wallet = session.get('wallet').walletV2;
 
   $scope.reset = function ($event) {
@@ -28,11 +28,11 @@ angular.module('stellarClient').controller('SettingsTotpCtrl', function($scope, 
 
   function enableTotp() {
     $scope.enabling = true;
-    key = StellarWallet.util.generateRandomTotpKey();
+    key = PaysharesWallet.util.generateRandomTotpKey();
     // Partition string into 4 chars segments
     $scope.key = key.match(/.{4}/g).join(' ');
-    $scope.uri = StellarWallet.util.generateTotpUri(key, {
-      issuer: 'Stellar Development Foundation',
+    $scope.uri = PaysharesWallet.util.generateTotpUri(key, {
+      issuer: 'Payshares Development Foundation',
       accountName: session.get('username')
     });
   }
@@ -48,7 +48,7 @@ angular.module('stellarClient').controller('SettingsTotpCtrl', function($scope, 
       totpCode: $scope.code
     };
 
-    StellarWallet.getWallet(params).then(function() {
+    PaysharesWallet.getWallet(params).then(function() {
       return wallet.enableTotp({
         totpKey: key,
         totpCode: $scope.code,
@@ -57,12 +57,12 @@ angular.module('stellarClient').controller('SettingsTotpCtrl', function($scope, 
     }).then(function() {
       $scope.reset();
       $scope.$emit('settings-totp-toggled', true);
-    }).catch(StellarWallet.errors.Forbidden,
-             StellarWallet.errors.TotpCodeRequired,
-             StellarWallet.errors.InvalidTotpCode,
-             StellarWallet.errors.MissingField, function() {
+    }).catch(PaysharesWallet.errors.Forbidden,
+             PaysharesWallet.errors.TotpCodeRequired,
+             PaysharesWallet.errors.InvalidTotpCode,
+             PaysharesWallet.errors.MissingField, function() {
       $scope.error = "Password or TOTP code incorrect.";
-    }).catch(StellarWallet.errors.ConnectionError, function() {
+    }).catch(PaysharesWallet.errors.ConnectionError, function() {
       $scope.error = 'Connection error. Please try again.';
     }).catch(function(e) {
       Raven.captureMessage('confirmEnableTotp unknown error', {
@@ -91,7 +91,7 @@ angular.module('stellarClient').controller('SettingsTotpCtrl', function($scope, 
       totpCode: $scope.code
     };
 
-    StellarWallet.getWallet(params).then(function() {
+    PaysharesWallet.getWallet(params).then(function() {
       return wallet.disableTotp({
         totpCode: $scope.code,
         secretKey: session.get('wallet').keychainData.signingKeys.secretKey
@@ -99,12 +99,12 @@ angular.module('stellarClient').controller('SettingsTotpCtrl', function($scope, 
     }).then(function() {
       $scope.reset();
       $scope.$emit('settings-totp-toggled', false);
-    }).catch(StellarWallet.errors.Forbidden,
-             StellarWallet.errors.TotpCodeRequired,
-             StellarWallet.errors.InvalidTotpCode,
-             StellarWallet.errors.MissingField, function() {
+    }).catch(PaysharesWallet.errors.Forbidden,
+             PaysharesWallet.errors.TotpCodeRequired,
+             PaysharesWallet.errors.InvalidTotpCode,
+             PaysharesWallet.errors.MissingField, function() {
       $scope.error = "Password or TOTP code incorrect.";
-    }).catch(StellarWallet.errors.ConnectionError, function() {
+    }).catch(PaysharesWallet.errors.ConnectionError, function() {
       $scope.error = 'Connection error. Please try again.';
     }).catch(function(e) {
       Raven.captureMessage('confirmDisableTotp unknown error', {

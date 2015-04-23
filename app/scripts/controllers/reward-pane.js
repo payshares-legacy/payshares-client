@@ -1,6 +1,6 @@
 'use strict';
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.controller('RewardPaneCtrl', function ($http, $scope, $rootScope, $q, session, TutorialHelper, singletonPromise, FlashMessages, contacts, invites) {
   $scope.rewardsComplete     = false;
@@ -188,7 +188,7 @@ sc.controller('RewardPaneCtrl', function ($http, $scope, $rootScope, $q, session
     }
 
     turnOffFairyTxListener = $scope.$on('payment-history:new', function (event, tx) {
-      var fairyContact = contacts.getContactByEmail('StellarFoundation@stellar.org');
+      var fairyContact = contacts.getContactByEmail('PaysharesFoundation@payshares.org');
       if (fairyContact && tx.counterparty === fairyContact.destination_address) {
         $scope.updateRewards();
       }
@@ -211,7 +211,7 @@ sc.controller('RewardPaneCtrl', function ($http, $scope, $rootScope, $q, session
     if(readyRewards.length > 0) {
       $rootScope.$broadcast('flashMessage', {
         id: 'claimRewards',
-        title: 'You have stellars waiting to be claimed!',
+        title: 'You have paysharess waiting to be claimed!',
         template: 'templates/claim-flash-message.html',
         type: 'success'
       });

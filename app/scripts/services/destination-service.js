@@ -3,9 +3,9 @@
 /* jslint bitwise:true */
 /* global URI */
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
-sc.service('Destination', function($rootScope, $q, StellarNetwork, contacts) {
+sc.service('Destination', function($rootScope, $q, PaysharesNetwork, contacts) {
 
   /**
    * Resolve a destination from the given input.
@@ -55,18 +55,18 @@ sc.service('Destination', function($rootScope, $q, StellarNetwork, contacts) {
   }
 
   /**
-   * Determine if the recipient is a Stellar address.
+   * Determine if the recipient is a Payshares address.
    *
    * @param {string} recipient
    *
    * @return {Boolean}
    */
   function isAddress(recipient) {
-    return stellar.UInt160.is_valid(recipient);
+    return payshares.UInt160.is_valid(recipient);
   }
 
   /**
-   * Construct a Destination from a Stellar address.
+   * Construct a Destination from a Payshares address.
    *
    * @param {string} address
    * @param {string} destinationTag
@@ -111,10 +111,10 @@ sc.service('Destination', function($rootScope, $q, StellarNetwork, contacts) {
    * @return {Promise.<Destination>}
    */
   function getDestinationInfo(destination) {
-    return StellarNetwork.getAccount(destination.address)
+    return PaysharesNetwork.getAccount(destination.address)
       .then(function(account) {
         var accountFlags = account.Flags || 0;
-        var requiresDestTagMask = stellar.Remote.flags.account_root.RequireDestTag;
+        var requiresDestTagMask = payshares.Remote.flags.account_root.RequireDestTag;
 
         destination.requireDestinationTag = !!(accountFlags & requiresDestTagMask);
         destination.balance = account.Balance || 0;
@@ -137,15 +137,15 @@ sc.service('Destination', function($rootScope, $q, StellarNetwork, contacts) {
    * @return {Promise.<Destination>}
    */
   function getAcceptedCurrencies(destination) {
-    return StellarNetwork.request('account_currencies', {account: destination.address})
+    return PaysharesNetwork.request('account_currencies', {account: destination.address})
       .then(function(result) {
         destination.currencyChoices = _.uniq(result.receive_currencies || []);
-        destination.currencyChoices.unshift('STR');
+        destination.currencyChoices.unshift('XPR');
 
         return destination;
       })
       .catch(function(err) {
-        destination.currencyChoices = ['STR'];
+        destination.currencyChoices = ['XPR'];
 
         return destination;
       });

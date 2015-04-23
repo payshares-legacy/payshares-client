@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('mockStellarNetwork', [])
-  .factory('StellarNetwork', [function() {
+angular.module('mockPaysharesNetwork', [])
+  .factory('PaysharesNetwork', [function() {
     var transaction = {
       trustSet: function () {},
       setFlags: function () {},

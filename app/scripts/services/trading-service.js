@@ -1,9 +1,9 @@
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
-sc.factory('Trading', function($rootScope, $q, session, StellarNetwork, TransactionCurator, OrderBook, TradingOps, CurrencyPairs, FriendlyOffers) {
+sc.factory('Trading', function($rootScope, $q, session, PaysharesNetwork, TransactionCurator, OrderBook, TradingOps, CurrencyPairs, FriendlyOffers) {
   /**
    *
-   * The main service that interacts with the trading features of the stellar network.
+   * The main service that interacts with the trading features of the payshares network.
    *
    * This service provides methods that allows you to create/update/cancel trade offers,
    * as well as giving you means to retrieve {@link Structs.OrderBook} objects to give you information
@@ -14,7 +14,7 @@ sc.factory('Trading', function($rootScope, $q, session, StellarNetwork, Transact
    * The Trading object broadcasts a series of events from the rootScope that
    * you can hook into to drive logic in your controllers:
    *
-   * - `trading:my-offers:canceled`: The stellar network has successfully canceled 
+   * - `trading:my-offers:canceled`: The payshares network has successfully canceled 
    *   an offer from the current sessions's account 
    * - `trading:my-offers:created-unfilled`: The current account has created 
    *   an offer and it ended up in the appropriate order book unfilled
@@ -33,8 +33,8 @@ sc.factory('Trading', function($rootScope, $q, session, StellarNetwork, Transact
    */
   var Trading = {};
 
-  $rootScope.$on('stellar-network:transaction', updateMyOffers);
-  $rootScope.$on('stellar-network:transaction', broadcastTrades);
+  $rootScope.$on('payshares-network:transaction', updateMyOffers);
+  $rootScope.$on('payshares-network:transaction', broadcastTrades);
 
 
   Trading.getOrderBook = function(currencyPair) {
@@ -72,7 +72,7 @@ sc.factory('Trading', function($rootScope, $q, session, StellarNetwork, Transact
   /**
    * 
    * Inspects incoming transactions, sees whether or not they affect any of the current
-   * accounts offers, and emits events in the stellar-network:my-offers:* namespace
+   * accounts offers, and emits events in the payshares-network:my-offers:* namespace
    * 
    */
   function updateMyOffers(e, tx) {

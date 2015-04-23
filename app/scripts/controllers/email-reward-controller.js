@@ -1,6 +1,6 @@
 'use strict';
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.controller('EmailRewardCtrl', function ($scope, $rootScope, session) {
   $scope.reward = {
@@ -18,10 +18,10 @@ sc.controller('EmailRewardCtrl', function ($scope, $rootScope, session) {
         case 'needs_fbauth':
         case 'sending':
         case 'sent':
-          // User needs to fb auth before they can get their stellars (when they're done, still show this message)
+          // User needs to fb auth before they can get their paysharess (when they're done, still show this message)
           return {
             title: 'Password recovery activated',
-            subtitle: 'Log in with Facebook to receive stellars'
+            subtitle: 'Log in with Facebook to receive paysharess'
           };
         default:
           return {

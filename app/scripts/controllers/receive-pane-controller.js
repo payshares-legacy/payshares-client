@@ -1,6 +1,6 @@
 'use strict';
 
-var sc = angular.module('stellarClient');
+var sc = angular.module('paysharesClient');
 
 sc.controller('ReceivePaneCtrl', function($scope, session) {
   $scope.showAddress = false;

@@ -1,4 +1,4 @@
-angular.module('stellarClient').service('FriendlyOffers', function($q, CurrencyPairs) {
+angular.module('paysharesClient').service('FriendlyOffers', function($q, CurrencyPairs) {
   var self = this;
 
   this.get = function(offer, currencyPair) {
