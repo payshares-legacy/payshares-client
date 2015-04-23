@@ -23,7 +23,7 @@
     "ng-clip": "0.2.4",
     "payshares-wallet-js-sdk": "git+https://github.com/payshares/payshares-wallet-js-sdk.git#master",
     "tweetnacl": "0.11.2",
-    "payshares-lib": "0.10.1",
+    "payshares-lib": "git+https://github.com/payshares/payshares-lib.git#master",
     "zeroclipboard": "2.1.6",
     "bignumber.js": "1.4.1",
     "angulartics": "0.17.1",
