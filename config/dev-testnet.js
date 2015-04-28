@@ -2,7 +2,7 @@
 window.Options = {
     server: {
         "trusted" : true,
-        "websocket_ip" : "test.payshares.org",
+        "websocket_ip" : "test.payshares.co",
         "websocket_port" : 9001,
         "websocket_ssl" : true
     },
@@ -17,7 +17,7 @@ window.Options = {
 
     APP_ID: '1512347158994532',
     DOMAIN_NAME: 'payshares.local.dev',
-    DEFAULT_FEDERATION_DOMAIN: 'payshares.org',
+    DEFAULT_FEDERATION_DOMAIN: 'payshares.co',
     API_SERVER: 'http://localhost:3001',
     API_STATUS_PATH: '/status.json',
     WALLET_SERVER: 'http://localhost:3000',
