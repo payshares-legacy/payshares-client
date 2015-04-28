@@ -1,7 +1,7 @@
 'use strict';
-/* exported STELLAR_CLIENT_REVISION */
+/* exported PAYSHARES_CLIENT_REVISION */
 /* jslint camelcase: false */
-var STELLAR_CLIENT_REVISION = '_GIT_REVISION_GOES_HERE_';
+var PAYSHARES_CLIENT_REVISION = '_GIT_REVISION_GOES_HERE_';
 
 console.log("%cStop!", "color:white; background:red; font-size: 16pt");
 console.log("%cThis is browser feature intended for developers. If someone told you to copy-paste something here, it is a scam and will give them access to your money!", "font-size: 14pt");
