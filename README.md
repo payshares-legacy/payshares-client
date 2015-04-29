@@ -1,6 +1,6 @@
 # Payshares Client
 
-[![Build Status](https://travis-ci.org/payshares/payshares-client.svg)](https://travis-ci.org/payshares/payshares-client)
+[![Build Status](https://travis-ci.org/Payshares/payshares-client.svg)](https://travis-ci.org/Payshares/payshares-client)
 
 The Payshares client is an AngularJS application that allows users to interact with the Payshares network from their browser.
 This client allows users to register for an account, generate a wallet containing cryptographic keys, and submit transactions to the Payshares network.
