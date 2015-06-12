@@ -9,7 +9,7 @@ var sc = angular.module('paysharesClient');
  * 
  * Prioritizing a CurrencyPair needs a little explanation.  The need arises from
  * the fact that the Payshares network does not apply any directionality to a trade:
- * Buying 10 XPR for 0.25 USD is literally the same as selling 0.25 USD for 10 XPR
+ * Buying 10 XPS for 0.25 USD is literally the same as selling 0.25 USD for 10 XPS
  * in the ledger.  That is not desireable because traders often only think of one
  * direction, i.e.  BTC/USD or USD/EUR, not USD/BTC or EUR/USD.  
  * 

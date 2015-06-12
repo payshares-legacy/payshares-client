@@ -4,9 +4,9 @@ sc.controller('TradingFormCtrl', function($scope, $state, session, singletonProm
   // Populate the currency lists from the wallet's gateways.
   var gateways = session.get('wallet').get('mainData', 'gateways', []);
   var gatewayCurrencies = _.flatten(_.pluck(gateways, 'currencies'));
-  $scope.currencies = [{currency:"XPR"}].concat(gatewayCurrencies);
+  $scope.currencies = [{currency:"XPS"}].concat(gatewayCurrencies);
   $scope.currencyNames = _.uniq(_.pluck($scope.currencies, 'currency'));
-  var MAX_XPR_AMOUNT = new BigNumber(2).toPower(64).minus(1).dividedBy('1000000'); // (2^64-1)/10^6
+  var MAX_XPS_AMOUNT = new BigNumber(2).toPower(64).minus(1).dividedBy('1000000'); // (2^64-1)/10^6
   var MAX_CREDIT_PRECISION = 14; // paysharesd credits supports up to 15 significant digits
 
 
@@ -135,7 +135,7 @@ sc.controller('TradingFormCtrl', function($scope, $state, session, singletonProm
     $scope.formIsValid = validateCurrencies() && validateTradeAmount(baseAmount) && validateTradeAmount(counterAmount);
 
     // Price is optional and when it is not filled out, we want to display what the calculated price is
-    // in the info line (where it says: Buy 2 BTC for 160000 XPR at 80000 XPR/BTC)
+    // in the info line (where it says: Buy 2 BTC for 160000 XPS at 80000 XPS/BTC)
     if ($scope.formIsValid) {
       calculateTrueTradePrice();
     }
@@ -156,9 +156,9 @@ sc.controller('TradingFormCtrl', function($scope, $state, session, singletonProm
   }
 
   // Truncate the amount to match paysharesd's max precision
-  // and round XPR to 6 decimal places.
+  // and round XPS to 6 decimal places.
   function normalizeAmount(amount, currency) {
-    if(currency === 'XPR') {
+    if(currency === 'XPS') {
       amount = new BigNumber(amount).toFixed(6);
       amount = new BigNumber(amount).toString();
     }
@@ -186,16 +186,16 @@ sc.controller('TradingFormCtrl', function($scope, $state, session, singletonProm
     }
 
     var amountNegative    = value.lessThanOrEqualTo(0);
-    var XPRBoundsError    = amount.currency === "XPR" && value.greaterThan(MAX_XPR_AMOUNT);
-    var XPRPrecisionError = amount.currency === "XPR" && !value.equals(value.toFixed(6));
-    var creditBoundsError = amount.currency !== "XPR" && value.c.length > MAX_CREDIT_PRECISION;
+    var XPSBoundsError    = amount.currency === "XPS" && value.greaterThan(MAX_XPS_AMOUNT);
+    var XPSPrecisionError = amount.currency === "XPS" && !value.equals(value.toFixed(6));
+    var creditBoundsError = amount.currency !== "XPS" && value.c.length > MAX_CREDIT_PRECISION;
 
     if (amountNegative) {
       $scope.formErrorMessage = amount.currency + ' amount must be a positive number';
-    } else if (XPRBoundsError) {
-      $scope.formErrorMessage = 'XPR amount is too large: ' + value.toString();
-    } else if (XPRPrecisionError) {
-      $scope.formErrorMessage = 'XPR amount has too many decimals: ' + value.toString();
+    } else if (XPSBoundsError) {
+      $scope.formErrorMessage = 'XPS amount is too large: ' + value.toString();
+    } else if (XPSPrecisionError) {
+      $scope.formErrorMessage = 'XPS amount has too many decimals: ' + value.toString();
     } else if (creditBoundsError) {
       $scope.formErrorMessage = amount.currency + ' amount has too much precision: ' + value.toString();
     } else {

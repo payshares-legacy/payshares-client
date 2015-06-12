@@ -63,7 +63,7 @@ filterMod.filter('addressToUsername', function (contacts) {
           }
         }
         if (!input){
-            return ""; // no issuer for XPR
+            return ""; // no issuer for XPS
         }
         return input;
     };

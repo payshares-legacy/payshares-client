@@ -7,7 +7,7 @@
  * Ripple trading default currency pairs.
  *
  * This list is a bit arbitrary, but it's basically the Majors [1] from forex
- * trading with some XPR pairs added.
+ * trading with some XPS pairs added.
  *
  * [1] http://en.wikipedia.org/wiki/Currency_pair#The_Majors
  *
@@ -15,15 +15,15 @@
  * @constant
  */
 var pairs = [
-    {name: 'BTC/XPR', order: 1},
-    {name: 'XPR/USD', order: 1},
-    {name: 'XPR/EUR', order: 1},
-    {name: 'XPR/JPY', order: 0},
-    {name: 'XPR/GBP', order: 0},
-    {name: 'XPR/AUD', order: 0},
-    {name: 'XPR/CHF', order: 0},
-    {name: 'XPR/CAD', order: 0},
-    {name: 'XPR/CNY', order: 0},
+    {name: 'BTC/XPS', order: 1},
+    {name: 'XPS/USD', order: 1},
+    {name: 'XPS/EUR', order: 1},
+    {name: 'XPS/JPY', order: 0},
+    {name: 'XPS/GBP', order: 0},
+    {name: 'XPS/AUD', order: 0},
+    {name: 'XPS/CHF', order: 0},
+    {name: 'XPS/CAD', order: 0},
+    {name: 'XPS/CNY', order: 0},
     {name: 'BTC/USD', order: 0},
     {name: 'BTC/EUR', order: 0},
     {name: 'EUR/USD', order: 0},
@@ -300,7 +300,7 @@ var JsonRewriter = {
               };
             }
 
-            // Updated XPR Balance
+            // Updated XPS Balance
             if (tx.Fee !== node.fieldsPrev.Balance - node.fields.Balance) {
               if (feeEff) {
                 balance = balance.subtract(feeEff.amount);
@@ -312,7 +312,7 @@ var JsonRewriter = {
 
               // balance_changer is set to true if the transaction / effect has changed one of the account balances
               obj.balance_changer = effect.balance_changer = true;
-              affected_currencies.push('XPR');
+              affected_currencies.push('XPS');
             }
           }
         }

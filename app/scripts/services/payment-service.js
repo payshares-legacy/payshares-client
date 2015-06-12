@@ -187,7 +187,7 @@ sc.service('Payment', function($rootScope, $q, PaysharesNetwork, Destination, Ca
       $rootScope.$broadcast('payment:paths-error');
     });
 
-    // If there is a native XPR path broadcast it immediately.
+    // If there is a native XPS path broadcast it immediately.
     var initialPaths = processPaths([]);
     if(_.any(initialPaths)) {
       broadcastPaths(initialPaths);
@@ -221,7 +221,7 @@ sc.service('Payment', function($rootScope, $q, PaysharesNetwork, Destination, Ca
 
   /**
    * Process an array of "raw" transaction paths.
-   * Add a native XPR path if valid.
+   * Add a native XPS path if valid.
    *
    * @param {Array.<Object>} rawPaths
    *

@@ -4,7 +4,7 @@
 var sc = angular.module('paysharesClient');
 
 sc.controller('InvitesCtrl', function($scope, $http, $q, $filter, $analytics, session, invites, singletonPromise) {
-    var INVITE_LINK = "https://launch.payshares.org/#/register?inviteCode=";
+    var INVITE_LINK = "https://launch.payshares.co/#/register?inviteCode=";
 
     $scope.getInvites = function () {
         return session.getUser().getInvites();

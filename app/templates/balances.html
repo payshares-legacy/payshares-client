@@ -10,7 +10,7 @@
         <ul class="currencies-list">
             <li class="currency-box">
                 <h5>{{ balance | rpamount:{rel_precision: 0} }}</h5>
-                <p class="currency">{{ 'XPR' | currencyName }}</p>
+                <p class="currency">{{ 'XPS' | currencyName }}</p>
             </li>
             <li ng-repeat="accountLine in nonZeroAccountLines" class="currency-box">
                 <h5>{{ accountLine.balance | roundAmount:accountLine.currency }}</h5>

@@ -140,12 +140,12 @@ sc.service('Destination', function($rootScope, $q, PaysharesNetwork, contacts) {
     return PaysharesNetwork.request('account_currencies', {account: destination.address})
       .then(function(result) {
         destination.currencyChoices = _.uniq(result.receive_currencies || []);
-        destination.currencyChoices.unshift('XPR');
+        destination.currencyChoices.unshift('XPS');
 
         return destination;
       })
       .catch(function(err) {
-        destination.currencyChoices = ['XPR'];
+        destination.currencyChoices = ['XPS'];
 
         return destination;
       });

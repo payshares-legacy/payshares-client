@@ -31,7 +31,7 @@ sc.controller('NavCtrl', function($scope, session) {
   }
 
   $scope.getLogoLink = function () {
-    return $scope.loggedIn ? '#/' : 'http://www.payshares.org';
+    return $scope.loggedIn ? '#/' : 'http://www.payshares.co';
   };
 
   $scope.showTradingLink = function() {

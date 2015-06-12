@@ -18,8 +18,8 @@ sc.service('Balances', function($rootScope, $q, PaysharesNetwork, session) {
   });
 
   /**
-   * Fetches a copy of the all the user's balances (XPR and credits).
-   * It is guaranteed that XPR will be present in the list of balances.
+   * Fetches a copy of the all the user's balances (XPS and credits).
+   * It is guaranteed that XPS will be present in the list of balances.
    * Use this if you want to force fetch the balances. If not, use ensureBalancesLoaded
    * 
    * @return {Promise} A promise that resolves to a clone of an unsorted array 
@@ -32,9 +32,9 @@ sc.service('Balances', function($rootScope, $q, PaysharesNetwork, session) {
       .then(function(results) {
         /*jshint camelcase: false */
         var creditBalances = _.map(results[0].lines, PaysharesNetwork.amount.decodeFromAccountLine);
-        var XPRBalance = PaysharesNetwork.amount.decode(results[1].account_data.Balance);
+        var XPSBalance = PaysharesNetwork.amount.decode(results[1].account_data.Balance);
 
-        var newBalances = new Array(XPRBalance).concat(creditBalances);
+        var newBalances = new Array(XPSBalance).concat(creditBalances);
         balances = newBalances;
         return _.cloneDeep(newBalances);
       });
@@ -58,7 +58,7 @@ sc.service('Balances', function($rootScope, $q, PaysharesNetwork, session) {
 
   /**
    * Gets the balance of an currency item. Either takes in an amount struct or 
-   * a pair of currency (string) and issuer string (optional if currency is XPR)
+   * a pair of currency (string) and issuer string (optional if currency is XPS)
    *
    * Returns an amount with value of 0 if it couldn't find the currency from 
    * the balances.
@@ -84,7 +84,7 @@ sc.service('Balances', function($rootScope, $q, PaysharesNetwork, session) {
   function isValidCurrency(currency) {
     var isObject    = typeof currency === 'object';
     var hasCurrency = 'currency' in currency;
-    var hasIssuer   = currency.currency === 'XPR' || ('issuer' in currency);
+    var hasIssuer   = currency.currency === 'XPS' || ('issuer' in currency);
 
     if (isObject && hasCurrency && hasIssuer) {
       return true;
@@ -95,7 +95,7 @@ sc.service('Balances', function($rootScope, $q, PaysharesNetwork, session) {
 
   function hasValidIssuer(currency) {
     /*jshint camelcase: false */
-    var isPayshares      = currency.currency === 'XPR';
+    var isPayshares      = currency.currency === 'XPS';
     var isValidAddress = payshares.UInt160.is_valid(currency.issuer);
 
     if(isPayshares && currency.issuer) {

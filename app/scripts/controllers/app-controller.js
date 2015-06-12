@@ -28,7 +28,7 @@ sc.controller('AppCtrl', function($scope, $rootScope, PaysharesNetwork, session,
     var accountObj;
 
     $scope.getLogoLink = function () {
-        return session.get('loggedIn') ? '#/' : 'http://www.payshares.org';
+        return session.get('loggedIn') ? '#/' : 'http://www.payshares.co';
     };
 
 
@@ -126,11 +126,11 @@ sc.controller('AppCtrl', function($scope, $rootScope, PaysharesNetwork, session,
          this is because we set the inflation dest of the account for them which takes a fee
 
 
-         so as a fix, don't set the inflation destination if it will cause them to round down an XPR. so basically wait till they do a send to set the inflate. this way they don't notice it. I mean right now you set the inflation_dest under certain conditions. just add this floor check as a condition also
+         so as a fix, don't set the inflation destination if it will cause them to round down an XPS. so basically wait till they do a send to set the inflate. this way they don't notice it. I mean right now you set the inflation_dest under certain conditions. just add this floor check as a condition also
 
          you can just check if floor(balance - fee) < floor(balance)
 
-         any amount would be bad and also if they never use the giveaway. if instead their friend sends them 1000 XPR or something
+         any amount would be bad and also if they never use the giveaway. if instead their friend sends them 1000 XPS or something
          */
         var account = $scope.account;
 

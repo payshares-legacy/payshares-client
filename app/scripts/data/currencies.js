@@ -6,14 +6,14 @@
  * * http://goldnews.bullionvault.com/all_the_money_in_the_world_102720093
  *   (A better source is welcome. Note: The US dollar was moved to the top.)
  *
- * Important: XPR must be the first entry in this list.
+ * Important: XPS must be the first entry in this list.
  *
  * @constant
  * @memberOf Data
  */
 window.PaysharesDefaultCurrencyList =
 [
-    {value: 'XPR', name: 'XPR - Paysharess', order: 4, maxDecimalPlaces: 0},
+    {value: 'XPS', name: 'XPS - Paysharess', order: 4, maxDecimalPlaces: 0},
     {value: 'USD', name: 'USD - US Dollar', order: 3, maxDecimalPlaces: 2},
     {value: 'EUR', name: 'EUR - Euro', order: 2, maxDecimalPlaces: 2},
     {value: 'BTC', name: 'BTC - Bitcoin', order: 1, maxDecimalPlaces: 6},

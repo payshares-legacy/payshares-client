@@ -77,7 +77,7 @@
         </div>
         <div ng-show="tx_result=='claim'" class="result-malformed">
             <h2 class="tx-status">Transaction failed!</h2>
-            <p ng-switch on="engine_result"><span ng-switch-when="tecNO_DST">The destination account does not exist.</span><span ng-switch-when="tecNO_DST_INSUF_XRP">The destination account does not exist. Too little XPR sent to create it.</span><span ng-switch-default="ng-switch-default">Error: {{engine_result_message}}</span></p>
+            <p ng-switch on="engine_result"><span ng-switch-when="tecNO_DST">The destination account does not exist.</span><span ng-switch-when="tecNO_DST_INSUF_XRP">The destination account does not exist. Too little XPS sent to create it.</span><span ng-switch-default="ng-switch-default">Error: {{engine_result_message}}</span></p>
         </div>
         <div ng-show="tx_result=='failed'" class="result-failed">
             <h2 class="tx-status">Transaction failed!</h2>

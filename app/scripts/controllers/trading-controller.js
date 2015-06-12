@@ -11,7 +11,7 @@ sc.controller('TradingCtrl', function($scope, $q, Trading, Gateways, singletonPr
   };
 
   $scope.hasIssuer = function(currencyName) {
-    return currencyName && currencyName !== 'XPR';
+    return currencyName && currencyName !== 'XPS';
   };
 
   $scope.issuerToGateway = function(issuer) {

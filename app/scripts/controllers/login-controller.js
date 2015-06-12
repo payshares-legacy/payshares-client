@@ -19,7 +19,7 @@ angular.module('paysharesClient').controller('LoginCtrl', function($rootScope, $
       return $q.reject();
     }
 
-    var usernameV2 = $scope.username+'@payshares.org';
+    var usernameV2 = $scope.username+'@payshares.co';
 
     return $http.post(Options.WALLET_SERVER + '/v2/wallets/show_login_params', {
         username: usernameV2

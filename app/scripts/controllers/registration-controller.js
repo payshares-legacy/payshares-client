@@ -308,7 +308,7 @@ angular.module('paysharesClient').controller('RegistrationCtrl', function(
 
     PaysharesWallet.createWallet({
       server: Options.WALLET_SERVER+'/v2',
-      username: data.username.toLowerCase()+'@payshares.org',
+      username: data.username.toLowerCase()+'@payshares.co',
       password: data.password,
       publicKey: data.signingKeys.publicKey,
       keychainData: JSON.stringify(keychainData),

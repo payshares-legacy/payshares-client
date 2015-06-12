@@ -14,7 +14,7 @@ sc.controller('SendFormController', function($rootScope, $scope, Payment, deboun
 
     $scope.sendFormModel.recipient = params.dest + '?dt=' + params.dt;
     $scope.sendFormModel.amount = Number(params.amount);
-    $scope.sendFormModel.currency = params.currency || 'XPR';
+    $scope.sendFormModel.currency = params.currency || 'XPS';
   });
 
   // Reset the send form.

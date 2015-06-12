@@ -109,7 +109,7 @@ sc.controller('SendController', function($rootScope, $scope, $analytics, Payshar
 
   /*
   * An indirect path is a path that uses an offer or ripple to fill the transaction.
-  * An example of an INDIRECT path is a payment transaction from sender XPR -> XPR/USD offer -> receive USD
+  * An example of an INDIRECT path is a payment transaction from sender XPS -> XPS/USD offer -> receive USD
   * An example of a DIRECT path is a payment transaction from sender PaysharesGateway USD -> receive PaysharesGateway USD.
   * We check if the given path's path array is longer than 1 (if there's no path array or if it's of length one, it's a direct path).
   */

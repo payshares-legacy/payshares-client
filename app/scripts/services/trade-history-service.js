@@ -132,13 +132,13 @@ sc.service('TradeHistory', function($rootScope, TransactionHistory, Trading, ses
     var address = session.get('address');
     var balanceChanges = getBalanceChanges(transaction, address);
 
-    // Adjust XPR for the transaction fee taken.
+    // Adjust XPS for the transaction fee taken.
     var fee = new BigNumber(transaction.tx.Fee).dividedBy(1000000);
-    var paysharesBalanceChange = _.find(balanceChanges, {currency: 'XPR'});
+    var paysharesBalanceChange = _.find(balanceChanges, {currency: 'XPS'});
     paysharesBalanceChange.value = paysharesBalanceChange.value.plus(fee);
 
     if(paysharesBalanceChange.value.equals(0)) {
-      balanceChanges = _.reject(balanceChanges, {currency: 'XPR'});
+      balanceChanges = _.reject(balanceChanges, {currency: 'XPS'});
     }
 
     return balanceChanges;
@@ -181,7 +181,7 @@ sc.service('TradeHistory', function($rootScope, TransactionHistory, Trading, ses
 
         switch(node.LedgerEntryType) {
         case 'RippleState':
-          // Handle changes in non-XPR currency balance.
+          // Handle changes in non-XPS currency balance.
           var isHighIssuer = node.FinalFields.HighLimit.issuer === address;
           var isLowIssuer  = node.FinalFields.LowLimit.issuer  === address;
 
@@ -200,11 +200,11 @@ sc.service('TradeHistory', function($rootScope, TransactionHistory, Trading, ses
           break;
 
         case 'AccountRoot':
-          // Handle changes in XPR balance.
+          // Handle changes in XPS balance.
           if(node.FinalFields && node.FinalFields.Account === address) {
             value = new BigNumber(node.FinalFields.Balance).minus(node.PreviousFields.Balance).dividedBy(1000000);
             balanceChange = {
-              currency: 'XPR',
+              currency: 'XPS',
               value: value
             };
             balanceChanges.push(balanceChange);

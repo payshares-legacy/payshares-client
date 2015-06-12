@@ -113,7 +113,7 @@ angular.module('paysharesClient').controller('LoginV1Ctrl', function($rootScope,
     // Perform a migration
     PaysharesWallet.createWallet({
       server: Options.WALLET_SERVER+'/v2',
-      username: $stateParams.username.toLowerCase()+'@payshares.org',
+      username: $stateParams.username.toLowerCase()+'@payshares.co',
       password: $scope.password,
       publicKey: signingKeys.publicKey,
       keychainData: JSON.stringify(wallet.keychainData),

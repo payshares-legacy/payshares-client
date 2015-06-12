@@ -8,7 +8,7 @@ sc.controller('TradeCtrl', function($scope, session, Trading, CurrencyPairs) {
   //TODO: we need to dynamically populate a list that is useful to the user
   //TODO: allow a user to manually specify the currency pair to use (see mocks)
   $scope.currencies = [
-    {currency:"XPR"},
+    {currency:"XPS"},
     // {currency:"EUR", issuer: "gnhPFpbYXcYGMkGxfWdQGFfuKEdJoEThVo"},
     // {currency:"BTC", issuer: "gnhPFpbYXcYGMkGxfWdQGFfuKEdJoEThVo"},
     // {currency:"LTC", issuer: "gnhPFpbYXcYGMkGxfWdQGFfuKEdJoEThVo"},

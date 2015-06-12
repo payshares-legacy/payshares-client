@@ -152,7 +152,7 @@ sc.factory('PaysharesNetwork', function($rootScope, $timeout, $q) {
 
     /**
      * Normalizes a paysharesd native amount (which could be either a raw number
-     * for XPR or a currency/value/issuer object for other currencies) into our
+     * for XPS or a currency/value/issuer object for other currencies) into our
      * normalized {@link Structs.Amount} form.
      *
      * @param {string|number|object} nativeAmount the amount as reported from json
@@ -168,7 +168,7 @@ sc.factory('PaysharesNetwork', function($rootScope, $timeout, $q) {
         case "string":
         case "number":
           return {
-            currency: "XPR",
+            currency: "XPS",
             value: new BigNumber(nativeAmount).div(1000000).toString()
           };
         case "object":
@@ -209,13 +209,13 @@ sc.factory('PaysharesNetwork', function($rootScope, $timeout, $q) {
      * @function encode
      */
     self.amount.encode = function(normalizedAmount) {
-      if(normalizedAmount.currency === "XPR") {
+      if(normalizedAmount.currency === "XPS") {
         var stroopAmount = new BigNumber(normalizedAmount.value).times(1000000);
 
         // confirm there resultant stroop value isn't fractional
         var hasFraction = !stroopAmount.ceil().equals(stroopAmount);
         if(hasFraction) {
-          throw new Error("Cannot encode XPR amount: " + normalizedAmount.value);
+          throw new Error("Cannot encode XPS amount: " + normalizedAmount.value);
         }
 
         return stroopAmount.toString();
@@ -228,7 +228,7 @@ sc.factory('PaysharesNetwork', function($rootScope, $timeout, $q) {
     /** @namespace  PaysharesNetwork.currency */
     self.currency = {};
     /**
-     * Normalizes a paysharesd native currency (which could be either XPR or 
+     * Normalizes a paysharesd native currency (which could be either XPS or 
      * currency/issuer object for other currencies) into our normalized 
      * {@link Structs.Currency} form.
      *
@@ -242,7 +242,7 @@ sc.factory('PaysharesNetwork', function($rootScope, $timeout, $q) {
   
       switch(currencyType) {
         case "string":
-          return { currency: "XPR" };
+          return { currency: "XPS" };
         case "object":
           return nativeCurrency;
         default:
@@ -261,7 +261,7 @@ sc.factory('PaysharesNetwork', function($rootScope, $timeout, $q) {
      * @function encode
      */
     self.currency.encode = function(normalizedCurrency) {
-      if(normalizedCurrency.currency === "XPR") {
+      if(normalizedCurrency.currency === "XPS") {
         return normalizedCurrency.currency;
       } else {
         return normalizedCurrency;
