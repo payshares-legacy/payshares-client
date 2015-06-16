@@ -13,7 +13,7 @@ window.Options = {
         "track": false
     },
 
-    INFLATION_DEST: 'g4eRqgZfzfj3132y17iaf2fp6HQj1gofjt',
+    INFLATION_DEST: 'xURPTg7kEra2wBkP8LavDhnpGGQjCAbAnu',
 
     APP_ID: '1514787142083867',
     DOMAIN_NAME: 'stg.payshares.co',
