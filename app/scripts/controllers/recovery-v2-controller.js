@@ -15,7 +15,7 @@ angular.module('paysharesClient').controller('RecoveryV2Ctrl', function($scope, 
     }
 
     $scope.usernameClass = 'glyphicon-refresh spin';
-    var username = $scope.username + '@payshares.co';
+    var username = $scope.username + '@payshares.org';
 
     $http.post(Options.WALLET_SERVER + '/v2/wallets/show_login_params', {
       username: username
@@ -109,7 +109,7 @@ angular.module('paysharesClient').controller('RecoveryV2Ctrl', function($scope, 
     var deferred = $q.defer();
 
     // Append domain
-    params.username += '@payshares.co';
+    params.username += '@payshares.org';
 
     var userPartBytes = bs58.decode(params.recoveryCode);
     var serverPartBytes = bs58.decode(params.serverRecoveryCode);

@@ -5,7 +5,7 @@
 The Payshares client is an AngularJS application that allows users to interact with the Payshares network from their browser.
 This client allows users to register for an account, generate a wallet containing cryptographic keys, and submit transactions to the Payshares network.
 
-You can see it in action here: https://launch.payshares.co
+You can see it in action here: https://launch.payshares.org
 
 ## Security
 

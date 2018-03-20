@@ -40,12 +40,12 @@
         <div class="row">
             <div class="col-md-offset-3 col-md-4 send-form-status-container">
                 <p ng-show="send.pathStatus == 'insufficient-reserve'" class="send-form-status">
-                    You need a minimum balance of {{ send.reserve | rpamount }} paysharess remaining in your wallet after sending this transaction. <a href="https://www.payshares.co/faq/#_Why_is_there_a_minimum_balance" target="_blank" >More information</a>
+                    You need a minimum balance of {{ send.reserve | rpamount }} paysharess remaining in your wallet after sending this transaction. <a href="https://www.payshares.org/faq/#_Why_is_there_a_minimum_balance" target="_blank" >More information</a>
                 </p>
                 <p ng-show="send.pathStatus == 'destination-unfunded'" class="send-form-status">
                     Destination account is unfunded; send at least
                     {{send.minimumAmount | rpamount}} XPS to fund it.
-                    <a href="https://www.payshares.co/faq/#_Why_is_there_a_minimum_balance" target="_blank" >More information</a>
+                    <a href="https://www.payshares.org/faq/#_Why_is_there_a_minimum_balance" target="_blank" >More information</a>
                 </p>
                 <p ng-show="send.pathStatus == 'checking-destination'" class="send-form-status">Finding account...</p>
                 <p ng-show="send.pathStatus == 'paths-loading'" class="send-form-status">Finding paths...</p>

@@ -2,7 +2,7 @@
 window.Options = {
     server: {
         "trusted" : true,
-        "websocket_ip" : "live.payshares.co",
+        "websocket_ip" : "live.payshares.org",
         "websocket_port" : 9001,
         "websocket_ssl" : true
     },
@@ -16,11 +16,11 @@ window.Options = {
     INFLATION_DEST: 'xURPTg7kEra2wBkP8LavDhnpGGQjCAbAnu',
 
     APP_ID: '1411202179109031',
-    DOMAIN_NAME: 'payshares.co',
-    DEFAULT_FEDERATION_DOMAIN: 'payshares.co',
-    API_SERVER: 'https://api.payshares.co',
+    DOMAIN_NAME: 'payshares.org',
+    DEFAULT_FEDERATION_DOMAIN: 'payshares.org',
+    API_SERVER: 'https://api.payshares.org',
     API_STATUS_PATH: '/status.json',
-    WALLET_SERVER: 'https://wallet.payshares.co',
+    WALLET_SERVER: 'https://wallet.payshares.org',
 
     PERSISTENT_SESSION : false,
     DEFAULT_IDLE_LOGOUT_TIMEOUT : 30 * 60 * 1000, //15 minutes

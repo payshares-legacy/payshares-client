@@ -28,7 +28,7 @@ sc.controller('AppCtrl', function($scope, $rootScope, PaysharesNetwork, session,
     var accountObj;
 
     $scope.getLogoLink = function () {
-        return session.get('loggedIn') ? '#/' : 'http://www.payshares.co';
+        return session.get('loggedIn') ? '#/' : 'http://www.payshares.org';
     };
 
 

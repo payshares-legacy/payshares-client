@@ -188,7 +188,7 @@ sc.controller('RewardPaneCtrl', function ($http, $scope, $rootScope, $q, session
     }
 
     turnOffFairyTxListener = $scope.$on('payment-history:new', function (event, tx) {
-      var fairyContact = contacts.getContactByEmail('PaysharesFoundation@payshares.co');
+      var fairyContact = contacts.getContactByEmail('PaysharesFoundation@payshares.org');
       if (fairyContact && tx.counterparty === fairyContact.destination_address) {
         $scope.updateRewards();
       }

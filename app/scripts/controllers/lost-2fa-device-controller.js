@@ -14,7 +14,7 @@ angular.module('paysharesClient').controller('Lost2FADeviceCtrl', function($scop
 
     PaysharesWallet.lostTotpDevice({
       server: Options.WALLET_SERVER+'/v2',
-      username: $scope.username+'@payshares.co',
+      username: $scope.username+'@payshares.org',
       password: $scope.password
     }).then(function() {
       $scope.sent = true;
