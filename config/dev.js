@@ -3,7 +3,7 @@ window.Options = {
     server: {
         "trusted" : true,
         "websocket_ip" : "localhost",
-        "websocket_port" : 9001,
+        "websocket_port" : 5016,
         "websocket_ssl" : false
     },
 
