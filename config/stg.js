@@ -2,8 +2,8 @@
 window.Options = {
     server: {
         "trusted" : true,
-        "websocket_ip" : "test.payshares.org",
-        "websocket_port" : 9001,
+        "websocket_ip" : "stg.payshares.org",
+        "websocket_port" : 5016,
         "websocket_ssl" : true
     },
 
