@@ -16,7 +16,7 @@ window.Options = {
     INFLATION_DEST: 'xURPTg7kEra2wBkP8LavDhnpGGQjCAbAnu',
 
     APP_ID: '1411202179109031',
-    DOMAIN_NAME: 'payshares.org',
+    DOMAIN_NAME: 'launch.payshares.org',
     DEFAULT_FEDERATION_DOMAIN: 'payshares.org',
     API_SERVER: 'https://api.payshares.org',
     API_STATUS_PATH: '/status.json',
